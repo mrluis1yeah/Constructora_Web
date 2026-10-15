@@ -1,0 +1,729 @@
+/* 
+   ESTILOS DE LA PÁGINA
+   Este archivo contiene colores, tamaños, distribución y adaptación a pantallas pequeñas.
+*/
+
+* {
+    box-sizing: border-box; /* El padding queda incluido dentro del ancho del elemento. */
+}
+
+html {
+    scroll-behavior: smooth; /* Hace suave el desplazamiento al tocar un enlace del menú. */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #24352f;
+    background: #faf8f3;
+    line-height: 1.5;
+}
+
+img {
+    max-width: 100%; /* Las imágenes no se salen de su contenedor. */
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.12;
+    margin-top: 0;
+}
+
+h2 {
+    color: #0d4035;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+p {
+    margin-top: 0;
+}
+
+.encabezado {
+    min-height: 82px;
+    padding: 12px 6.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    background: #fffefa;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #27332f;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11px;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.marca img {
+    width: 48px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.marca strong {
+    font-size: 14px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12px;
+}
+
+.menu a:hover, .pie nav a:hover {
+    color: #c72b38;
+}
+
+.boton {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+}
+
+.boton-verde {
+    color: white;
+    background: #08784d;
+}
+
+.boton-rojo {
+    color: white;
+    background: #c82335;
+}
+
+.boton-transparente {
+    color: white;
+    border: 1px solid currentColor;
+    background: transparent;
+}
+
+.banner {
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    padding: 45px 6.5%;
+    color: white;
+    background-image: linear-gradient(90deg, rgba(7, 29, 24, 0.94), rgba(7, 29, 24, 0.65) 42%, rgba(7, 29, 24, 0.05)), url("../Imagenes/banner.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-contenido {
+    max-width: 440px;
+}
+
+.etiqueta {
+    color: #477466;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+    margin-bottom: 8px;
+}
+
+.banner .etiqueta {
+    color: #f1eee6;
+}
+
+.banner h1 {
+    font-size: 39px;
+    margin-bottom: 13px;
+}
+
+.banner-contenido > p:not(.etiqueta) {
+    font-size: 14px;
+    max-width: 380px;
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.valores {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 28px 6.5%;
+    background: #f4f1e9;
+}
+
+.valor {
+    text-align: center;
+    padding: 0 22px;
+    border-right: 1px solid #dedbd2;
+}
+
+.valor:last-child {
+    border-right: none;
+}
+
+.valor img {
+    width: 34px;
+    height: 34px;
+    margin: 0 auto 8px;
+}
+
+.valor h3 {
+    color: #0d4035;
+    margin-bottom: 5px;
+}
+
+.valor p {
+    font-size: 12px;
+    margin-bottom: 0;
+    color: #5f6c65;
+}
+
+.seccion {
+    padding: 42px 6.5%;
+}
+
+.seccion-suave {
+    background: #f3f1ea;
+}
+
+.titulo-seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 35px;
+    margin-bottom: 22px;
+}
+
+.titulo-seccion h2 {
+    margin-bottom: 0;
+}
+
+.texto-lateral {
+    max-width: 310px;
+    padding-left: 20px;
+    border-left: 1px solid #dedbd2;
+    color: #65716b;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.rejilla {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tarjeta {
+    overflow: hidden;
+    background: #fffefa;
+    border: 1px solid #e6e2d9;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(30, 45, 37, 0.04);
+}
+
+.foto-tarjeta {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+.tarjeta-texto {
+    padding: 12px;
+}
+
+.icono-tarjeta {
+    width: 27px;
+    height: 27px;
+    padding: 3px;
+    margin-top: -27px;
+    margin-bottom: 8px;
+    position: relative;
+    background: #fffefa;
+    border-radius: 3px;
+}
+
+.tarjeta-texto h3 {
+    color: #173f35;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.tarjeta-texto p {
+    color: #65716b;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.tarjeta-texto a {
+    color: #0b4a3b;
+    font-size: 22px;
+}
+
+.proyecto .foto-tarjeta {
+    height: 140px;
+}
+
+.proyecto .tarjeta-texto {
+    padding: 10px;
+}
+
+.proyecto .tarjeta-texto h3 {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.proyecto .tarjeta-texto p {
+    font-size: 10px;
+    margin-bottom: 0;
+}
+
+.nosotros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 45px;
+    background: #fffefa;
+}
+
+.nosotros > img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+}
+
+.nosotros-texto {
+    padding: 38px 10% 38px 0;
+}
+
+.nosotros-texto p:not(.etiqueta) {
+    color: #64716b;
+    font-size: 13px;
+}
+
+.nosotros-texto .frase {
+    color: #0d4035 !important;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.proceso {
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+
+.pasos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    text-align: center;
+}
+
+.pasos article {
+    padding: 8px 10px;
+    border-right: 1px solid #dedbd2;
+}
+
+.pasos article:last-child {
+    border-right: none;
+}
+
+.pasos span {
+    display: inline-flex;
+    width: 43px;
+    height: 43px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    background: #0d4035;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pasos h3 {
+    color: #0d4035;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.pasos p {
+    color: #65716b;
+    font-size: 11px;
+    margin-bottom: 0;
+}
+
+.tarjetas-testimonios {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.testimonio {
+    padding: 18px;
+    background: #fffefa;
+    border: 1px solid #e6e2d9;
+    border-radius: 5px;
+}
+
+.testimonio strong {
+    display: block;
+    color: #0d4035;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    height: 24px;
+}
+
+.testimonio p {
+    color: #5d6963;
+    font-size: 12px;
+}
+
+.testimonio small {
+    color: #79827d;
+    font-size: 10px;
+}
+
+.inmobiliaria {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.8fr;
+    align-items: center;
+    gap: 35px;
+    background: #f3f1ea;
+}
+
+.inmobiliaria > img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.inmobiliaria-texto {
+    padding: 28px 0;
+}
+
+.inmobiliaria-texto h3 {
+    color: #0d4035;
+}
+
+.inmobiliaria-texto p:not(.etiqueta) {
+    color: #65716b;
+    font-size: 13px;
+}
+
+.inmobiliaria ul {
+    list-style: none;
+    padding: 0 0 0 22px;
+    margin: 0;
+    border-left: 1px solid #dedbd2;
+}
+
+.inmobiliaria li {
+    padding: 9px 0;
+    font-size: 12px;
+}
+
+.inmobiliaria li::before {
+    content: "✓";
+    display: inline-block;
+    color: #08784d;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.contacto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding: 35px 6.5%;
+    color: white;
+    background: linear-gradient(90deg, rgba(4, 48, 39, 0.96), rgba(4, 48, 39, 0.88)), url("../Imagenes/banner.jpg") center/cover;
+}
+
+.contacto .etiqueta {
+    color: #c6d8ce;
+}
+
+.contacto h2 {
+    color: white;
+    margin-bottom: 0;
+}
+
+.contacto p:not(.etiqueta) {
+    font-size: 12px;
+}
+
+.contacto small {
+    display: block;
+    color: #c6d8ce;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+.pie {
+    color: #e8ece9;
+    background: #17211f;
+    padding: 28px 6.5% 15px;
+}
+
+.pie-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding-bottom: 25px;
+}
+
+.marca-pie {
+    color: white;
+}
+
+.pie nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 11px;
+}
+
+.redes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    font-size: 10px;
+}
+
+.redes span {
+    width: 100%;
+}
+
+.redes a {
+    border: 1px solid #66716d;
+    padding: 5px 7px;
+    border-radius: 4px;
+}
+
+.pie-final {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding-top: 14px;
+    border-top: 1px solid #35413d;
+    color: #aeb8b2;
+    font-size: 10px;
+}
+
+/* TABLET: se reducen los espacios y las tarjetas pasan a dos columnas. */
+@media (max-width: 900px) {
+    .encabezado {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .menu {
+        order: 3;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .rejilla {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nosotros {
+        gap: 25px;
+    }
+
+    .inmobiliaria {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        padding: 25px 6.5%;
+    }
+
+    .inmobiliaria ul {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pie-superior {
+        flex-wrap: wrap;
+    }
+}
+
+/* CELULAR: se organiza todo en una columna para que sea fácil de leer. */
+@media (max-width: 600px) {
+    .encabezado {
+        padding: 12px 5%;
+        gap: 12px;
+    }
+
+    .marca {
+        margin-right: auto;
+    }
+
+    .boton-menu {
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    .menu {
+        gap: 12px;
+        font-size: 11px;
+    }
+
+    .banner {
+        min-height: 420px;
+        padding: 35px 6%;
+        background-position: center;
+    }
+
+    .banner h1 {
+        font-size: 32px;
+    }
+
+    .banner-contenido > p:not(.etiqueta) {
+        font-size: 13px;
+    }
+
+    .valores {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 0;
+        padding: 25px 5%;
+    }
+
+    .valor {
+        padding: 0 12px;
+    }
+
+    .valor:nth-child(2) {
+        border-right: none;
+    }
+
+    .seccion {
+        padding: 32px 5%;
+    }
+
+    .titulo-seccion {
+        display: block;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    .texto-lateral {
+        margin-top: 15px;
+        padding-left: 12px;
+    }
+
+    .rejilla, .tarjetas-testimonios {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .foto-tarjeta, .proyecto .foto-tarjeta {
+        height: 190px;
+    }
+
+    .nosotros {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .nosotros > img {
+        height: 240px;
+    }
+
+    .nosotros-texto {
+        padding: 28px 5%;
+    }
+
+    .pasos {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .pasos article {
+        border-right: none;
+        border-bottom: 1px solid #dedbd2;
+        padding: 12px;
+    }
+
+    .pasos article:last-child {
+        border-bottom: none;
+    }
+
+    .inmobiliaria {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0 5% 28px;
+    }
+
+    .inmobiliaria > img {
+        height: 210px;
+        margin: 0 -5%;
+        width: 110%;
+        max-width: 110%;
+    }
+
+    .inmobiliaria-texto {
+        padding: 25px 0;
+    }
+
+    .inmobiliaria ul {
+        grid-column: auto;
+        display: block;
+        padding-left: 15px;
+    }
+
+    .contacto {
+        display: block;
+        padding: 30px 5%;
+    }
+
+    .contacto > div + div {
+        margin-top: 22px;
+    }
+
+    .pie {
+        padding: 25px 5% 15px;
+    }
+
+    .pie-superior {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pie nav {
+        gap: 12px;
+    }
+
+    .pie-final {
+        flex-direction: column;
+    }
+}

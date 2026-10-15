@@ -1,0 +1,56 @@
+NOTAS PARA EDITAR LA PÁGINA DEL EDITOR PARA EL EDITOR, CON MUCHO AMOR
+Constructora e Inmobiliaria Medina S.A.S.
+
+QUÉ HAY EN CADA CARPETA
+
+index.html: estructura y textos que aparecen en la página.
+Css/Estilos.css: colores, tamaños, espacios y diseño adaptable.
+Imagenes/: fotografías y logo que utilizo en la página.
+Imagenes/iconos/: pequeños dibujos SVG usados como iconos.
+Js/script.js: archivo de ejemplo; actualmente no realiza ninguna función.
+
+CÓMO CAMBIAR LOS TEXTOS
+Abro index.html 
+Busco el texto que quiera cambiar y lo reemplazo.
+No borro las etiquetas a menos para cambiarlas.
+
+CÓMO CAMBIAR LAS FOTOGRAFÍAS
+Guardo la foto nueva dentro de la carpeta Imagenes.
+Puedo mantener el mismo nombre del archivo actual y reemplazarlo, por ejemplo banner.jpg.
+
+CÓMO AÑADIR OTRA TARJETA DE SERVICIO
+En index.html busco la sección "SERVICIOS".
+Copio una tarjeta completa, desde  hasta .
+La pego junto a las otras tarjetas.
+
+CÓMO AÑADIR OTRO PROYECTO
+Busco la sección "NUESTROS PROYECTOS".
+Copio una tarjeta que tenga class="tarjeta proyecto".
+Cambio la imagen, el título y el subtítulo.
+Recuerdo que la fotografía debe existir dentro de Imagenes.
+
+CÓMO REUTILIZAR LOS BOTONES
+Los botones usan la clase CSS "boton".
+Para un botón rojo uso class="boton boton-rojo".
+Para uno verde uso class="boton boton-verde".
+Para un botón transparente uso class="boton boton-transparente".
+Para llevar a una sección de la página, utilizo href="#contacto", href="#servicios" u otro id que exista.
+Para WhatsApp, reemplazo 573000000000 por el número real con indicativo de país, sin +, espacios ni guiones.
+Para correo, reemplazo contacto@medina.com por el correo real.
+
+CÓMO CAMBIAR LOS COLORES
+Abro Css/Estilos.css.
+Busco background o color.
+background cambia el color de fondo.
+color cambia el color del texto.
+Los colores principales son verde oscuro (#0d4035), verde de botón (#08784d), rojo (#c82335) y crema (#faf8f3).
+
+CÓMO FUNCIONA EL DISEÑO RESPONSIVE
+Responsive significa que la página se acomoda al ancho de la pantalla.
+Al final de Estilos.css hay dos bloques que comienzan con @media.
+max-width: 900px se aplica a pantallas medianas, como tablets.
+max-width: 600px se aplica a celulares.
+Por ejemplo, las tarjetas pasan de cuatro columnas a dos y luego a una sola columna.
+
+CONSEJO
+Hago una copia de seguridad antes de modificar mucho el código. Cambio una cosa a la vez y recargo la página para ver el resultado.
