@@ -137,13 +137,77 @@
         <ul><li>Lotes en venta</li><li>Zonas con gran proyección</li><li>Asesoría personalizada</li><li>Inversión segura</li></ul>
     </section>
 
-    <section class="contacto" id="contacto">
-        <div><p class="etiqueta">CONTÁCTANOS</p><h2>¿Listo para construir<br>tu proyecto?</h2></div>
-        <div><p>Escríbenos por WhatsApp o correo electrónico.<br>Estaremos encantados de asesorarte.</p><div class="botones"><a class="boton boton-verde" href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a><a class="boton boton-transparente" href="mailto:conimed4@gmail.com">✉ Correo electrónico</a></div>
-    </section>
+
+<section class="contacto" id="contacto">
+    <div>
+        <h2>Solicita tu cotización</h2>
+        <p>Cuéntanos sobre tu proyecto.</p>
+    </div>
+
+    <!-- Formulario procesado por un servicio externo -->
+    <form
+        action="https://formsubmit.co/TU_CORREO@ejemplo.com"
+        method="POST"
+        target="_blank">
+
+        <label for="nombre">Nombre completo</label>
+        <input
+            type="text"
+            id="nombre"
+            name="Nombre"
+            placeholder="Tu nombre"
+            required>
+
+        <label for="telefono">Teléfono</label>
+        <input
+            type="tel"
+            id="telefono"
+            name="Telefono"
+            placeholder="Tu número de contacto"
+            required>
+
+        <label for="correo">Correo electrónico</label>
+        <input
+            type="email"
+            id="correo"
+            name="Correo"
+            placeholder="conimed4@gmail.com"
+            required>
+
+        <label for="proyecto">Tipo de proyecto</label>
+        <select id="proyecto" name="Tipo de proyecto" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Construcción">Construcción</option>
+            <option value="Remodelación">Remodelación</option>
+            <option value="Diseño técnico">Diseño técnico</option>
+            <option value="Proyecto inmobiliario">Proyecto inmobiliario</option>
+        </select>
+
+        <label for="mensaje">Cuéntanos tu idea</label>
+        <textarea
+            id="mensaje"
+            name="Mensaje"
+            placeholder="Describe brevemente tu proyecto"
+            required></textarea>
+
+        <!-- Configuración del envío -->
+        <input
+            type="hidden"
+            name="_subject"
+            value="Nueva solicitud de cotización">
+
+        <input
+            type="hidden"
+            name="_next"
+            value="http://localhost/Constructora/gracias.html">
+
+        <button type="submit">Enviar solicitud</button>
+    </form>
+</section>
+
 
     <footer class="pie">
-        <div class="pie-superior"><a class="marca marca-pie" href="#inicio"><img src="Imagenes/logo.png" alt=""><span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span></a><nav><a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#inmobiliaria">Inmobiliaria</a><a href="#contacto">Contacto</a></nav><div class="redes"><span>Síguenos en:</span><a href="https://www.facebook.com/Mastermedina45">Facebook</a><a href="https://www.instagram.com/mastermedina45">Instagram</a><a href="https://www.youtube.com/@Mastermedina45">YouTube</a><a href="https://www.tiktok.com/@mastermedina45">TikTok</a></div></div>
+        <div class="pie-superior"><a class="marca marca-pie" href="#inicio"><img src="Imagenes/logo.png" alt=""><span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span></a><div class="redes"><span>Síguenos en:</span><a href="https://www.facebook.com/Mastermedina45">Facebook</a><a href="https://www.instagram.com/mastermedina45">Instagram</a><a href="https://www.youtube.com/@Mastermedina45">YouTube</a><a href="https://www.tiktok.com/@mastermedina45">TikTok</a></div></div>
         <div class="pie-final"><span>Construimos confianza, construimos futuro.</span><span>© 2026 Constructora e Inmobiliaria Medina S.A.S.</span></div>
     </footer>
     <script src="Js/script.js"></script>

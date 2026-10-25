@@ -727,3 +727,43 @@ p {
         flex-direction: column;
     }
 }
+
+/* Diseño sencillo del formulario */
+.contacto form {
+    width: 100%;
+    max-width: 480px;
+}
+
+.contacto label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.contacto input,
+.contacto select,
+.contacto textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font: inherit;
+    font-size: 14px;
+}
+
+.contacto textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.contacto button {
+    margin-top: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #08784d;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
