@@ -36,14 +36,59 @@
     </main>
 
     <section class="contacto" id="contacto">
-        <div><p class="etiqueta">CONTÁCTANOS</p><h2>¿Listo para construir<br>tu proyecto?</h2></div>
-        <div><p>Escríbenos por WhatsApp o correo electrónico.<br>Estaremos encantados de asesorarte.</p><div class="botones"><a class="boton boton-verde" data-canal href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a><a class="boton boton-transparente" data-canal href="mailto:conimed4@gmail.com">✉ Correo electrónico</a></div><small id="mensaje"></small></div>
+        <div class="contacto-info">
+            <p class="etiqueta">CONTÁCTANOS</p>
+            <h2>¿Listo para construir<br>tu proyecto?</h2>
+            <p>Déjanos tus datos y te responderemos lo antes posible.<br>También puedes escribirnos directamente por WhatsApp.</p>
+            <div class="botones"><a class="boton boton-verde" data-canal href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a></div>
+            <small id="mensaje"></small>
+        </div>
+
+        <!-- FORMULARIO: Js/formulario.js lo envía a api/enviar.js, que manda el correo con Resend -->
+        <form class="formulario" id="formulario-contacto" aria-labelledby="titulo-formulario">
+            <h3 id="titulo-formulario">Envíanos tu solicitud</h3>
+            <div class="campos">
+                <label>Nombre completo
+                    <input type="text" name="nombre" autocomplete="name" minlength="2" maxlength="100" placeholder="Tu nombre" required>
+                </label>
+                <label>Correo electrónico
+                    <input type="email" name="correo" autocomplete="email" maxlength="150" placeholder="ejemplo@correo.com" required>
+                </label>
+                <label>Número de contacto
+                    <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="321 000 0000" required>
+                </label>
+                <label>Solicitud
+                    <select id="solicitud" name="solicitud" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option>Cotización de un proyecto</option>
+                        <option>Construcción desde cero</option>
+                        <option>Remodelación</option>
+                        <option>Diseño y apoyo técnico</option>
+                        <option>Proyectos inmobiliarios y lotes</option>
+                        <option>Información sobre una obra</option>
+                        <option>Otra</option>
+                    </select>
+                </label>
+                <label class="campo-ancho">Motivo
+                    <textarea name="motivo" rows="4" minlength="10" maxlength="3000" placeholder="Cuéntanos qué necesitas: tipo de obra, ubicación, medidas aproximadas, fechas..." required></textarea>
+                </label>
+            </div>
+
+            <!-- Campo trampa contra bots: no se ve y debe quedar vacío -->
+            <div class="trampa" aria-hidden="true">
+                <label>No llenar este campo <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <button class="boton boton-rojo" type="submit">Enviar solicitud →</button>
+            <div class="formulario-estado" id="estado-formulario" role="status" aria-live="polite"></div>
+        </form>
     </section>
 
     <footer class="pie">
         <div class="pie-final"><span>Construimos confianza, construimos futuro.</span><span>© 2026 Constructora e Inmobiliaria Medina S.A.S.</span></div>
     </footer>
     <script src="Js/script.js"></script>
+    <script src="Js/formulario.js"></script>
     <script src="Js/obras.js"></script>
 </body>
 </html>

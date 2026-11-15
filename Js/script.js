@@ -1,17 +1,32 @@
 /*
-    Mensajes prefabricados: cualquier enlace con data-asunto prepara el mensaje
-    que se enviará desde los botones de la sección de contacto (WhatsApp o correo).
-    El número y el correo se leen del propio HTML, así que solo se cambian allí.
+    Mensajes prefabricados: cualquier enlace con data-asunto prepara el mensaje de WhatsApp
+    y deja seleccionada la "Solicitud" correspondiente en el formulario de contacto.
+    El número de WhatsApp se lee del propio HTML, así que solo se cambia allí.
 */
-const [ws, correo] = document.querySelectorAll("[data-canal]");
-const [urlWs, urlCorreo] = [ws?.href, correo?.href];
+const ws = document.querySelector("[data-canal]");
+const urlWs = ws?.href;
+
+/* Palabra clave que aparece en data-asunto  →  opción del selector "Solicitud" (mismo texto que en el HTML). */
+const SOLICITUDES = [
+    ["cotiz", "Cotización de un proyecto"],
+    ["construcción", "Construcción desde cero"],
+    ["remodel", "Remodelación"],
+    ["diseño", "Diseño y apoyo técnico"],
+    ["inmobiliari", "Proyectos inmobiliarios y lotes"],
+    ["lotes", "Proyectos inmobiliarios y lotes"],
+    ["obra", "Información sobre una obra"]
+];
 
 function preparar(asunto) {
-    if (!ws) return;
     const texto = `Hola, quisiera información sobre ${asunto}.`;
-    ws.href = `${urlWs}?text=${encodeURIComponent(texto)}`;
-    correo.href = `${urlCorreo}?subject=${encodeURIComponent("Consulta: " + asunto)}&body=${encodeURIComponent(texto)}`;
-    document.querySelector("#mensaje").textContent = `Mensaje: “${texto}”`;
+    if (ws) ws.href = `${urlWs}?text=${encodeURIComponent(texto)}`;
+
+    const mensaje = document.querySelector("#mensaje");
+    if (mensaje) mensaje.textContent = `Mensaje de WhatsApp: “${texto}”`;
+
+    const selector = document.querySelector("#solicitud");
+    const coincide = SOLICITUDES.find(([clave]) => asunto.toLowerCase().includes(clave));
+    if (selector && coincide) selector.value = coincide[1];
 }
 
 preparar(document.querySelector("[data-asunto]")?.dataset.asunto ?? "la cotización de mi proyecto");

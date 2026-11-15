@@ -845,3 +845,160 @@ p {
     .boton, .boton::after, .tarjeta-texto a { transition: none; }
     .pista { scroll-behavior: auto; }
 }
+
+
+/* ============================================================
+   FORMULARIO DE CONTACTO (envía el correo con Resend)
+   ============================================================ */
+.contacto {
+    align-items: flex-start;
+}
+
+.contacto-info {
+    flex: 1;
+}
+
+.contacto-info .botones {
+    margin-top: 18px;
+}
+
+.formulario {
+    flex: 1.3;
+    max-width: 640px;
+    padding: 24px;
+    color: #24352f;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.formulario h3 {
+    margin: 0 0 16px;
+    color: #0d4035;
+    font-size: 20px;
+}
+
+.campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.campo-ancho {
+    grid-column: 1 / -1;
+}
+
+.formulario label {
+    display: block;
+    color: #0d4035;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 11px 12px;
+    color: #24352f;
+    background: #faf8f3;
+    border: 1px solid #cfd6d2;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 16px; /* 16px evita que el celular haga zoom al tocar el campo */
+    font-weight: normal;
+}
+
+.formulario textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.formulario input:focus-visible,
+.formulario select:focus-visible,
+.formulario textarea:focus-visible {
+    outline: 3px solid #f1c24b;
+    outline-offset: 1px;
+    border-color: #08784d;
+}
+
+.formulario :user-invalid {
+    border-color: #c82335;
+}
+
+/* Campo trampa contra bots: fuera de la pantalla, pero presente en el HTML. */
+.trampa {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.formulario button.boton {
+    width: 100%;
+    margin-top: 18px;
+    border: 0;
+    font-size: 14px;
+}
+
+.formulario button.boton:disabled {
+    opacity: 0.7;
+    cursor: wait;
+    transform: none;
+    filter: none;
+}
+
+.formulario-estado {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.formulario-estado:empty {
+    display: none;
+}
+
+.formulario-estado.info,
+.formulario-estado.exito,
+.formulario-estado.error {
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.formulario-estado.info {
+    color: #0d4035;
+    background: #e8f0ec;
+}
+
+.formulario-estado.exito {
+    color: #0b5a38;
+    background: #dff3e8;
+}
+
+.formulario-estado.error {
+    color: #8c1523;
+    background: #fbe4e7;
+}
+
+@media (max-width: 900px) {
+    .formulario {
+        max-width: none;
+        margin-top: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+    .campos {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario {
+        padding: 18px;
+    }
+}
+
+.formulario select {
+    height: 48px; /* misma altura que los demás campos */
+}

@@ -1,0 +1,140 @@
+NOTAS PARA EDITAR LA PÁGINA DEL EDITOR PARA EL EDITOR, CON MUCHO AMOR
+Constructora e Inmobiliaria Medina S.A.S.
+
+QUÉ HAY EN CADA CARPETA
+
+index.html: estructura y textos que aparecen en la página.
+Css/Estilos.css: colores, tamaños, espacios y diseño adaptable.
+Imagenes/: fotografías y logo que utilizo en la página.
+Imagenes/iconos/: pequeños dibujos SVG usados como iconos.
+Js/script.js: prepara el mensaje prefabricado de WhatsApp y Correo, y avisa cuando falta una imagen.
+obras.html: página de obras; muestra el listado de tarjetas o, con ?obra=id, el informe completo de una obra.
+Js/obras.js: lista de obras (OBRAS) y el código que las dibuja. Aquí se añaden, editan, activan y desactivan.
+Imagenes/obras/<id>/: una carpeta por obra para sus fotos.
+
+CÓMO CAMBIAR LOS TEXTOS
+Abro index.html 
+Busco el texto que quiera cambiar y lo reemplazo.
+No borro las etiquetas a menos para cambiarlas.
+
+CÓMO CAMBIAR LAS FOTOGRAFÍAS
+Guardo la foto nueva dentro de la carpeta Imagenes.
+Puedo mantener el mismo nombre del archivo actual y reemplazarlo, por ejemplo banner.jpg.
+
+CÓMO AÑADIR OTRA TARJETA DE SERVICIO
+En index.html busco la sección "SERVICIOS".
+Copio una tarjeta completa, desde  hasta .
+La pego junto a las otras tarjetas.
+
+CÓMO AÑADIR OTRO PROYECTO
+Busco la sección "NUESTROS PROYECTOS".
+Copio una tarjeta que tenga class="tarjeta proyecto".
+Cambio la imagen, el título y el subtítulo.
+Recuerdo que la fotografía debe existir dentro de Imagenes.
+
+CÓMO REUTILIZAR LOS BOTONES
+Los botones usan la clase CSS "boton".
+Para un botón rojo uso class="boton boton-rojo".
+Para uno verde uso class="boton boton-verde".
+Para un botón transparente uso class="boton boton-transparente".
+Para llevar a una sección de la página, utilizo href="#contacto", href="#servicios" u otro id que exista.
+Para WhatsApp, reemplazo 573000000000 por el número real con indicativo de país, sin +, espacios ni guiones.
+Para correo, reemplazo contacto@medina.com por el correo real.
+
+CÓMO CREAR UN MENSAJE PREFABRICADO
+A cualquier enlace le añado data-asunto="tema", por ejemplo: <a href="#contacto" data-asunto="lotes en venta">.
+Al tocarlo, la sección Contacto prepara "Hola, quisiera información sobre lotes en venta." para WhatsApp y correo.
+El número de WhatsApp y el correo se cambian solo en los dos botones de la sección Contacto (los que tienen data-canal).
+
+CÓMO CAMBIAR LOS COLORES
+Abro Css/Estilos.css.
+Busco background o color.
+background cambia el color de fondo.
+color cambia el color del texto.
+Los colores principales son verde oscuro (#0d4035), verde de botón (#08784d), rojo (#c82335) y crema (#faf8f3).
+
+CÓMO FUNCIONA EL DISEÑO RESPONSIVE
+Responsive significa que la página se acomoda al ancho de la pantalla.
+Al final de Estilos.css hay dos bloques que comienzan con @media.
+max-width: 900px se aplica a pantallas medianas, como tablets.
+max-width: 600px se aplica a celulares.
+Por ejemplo, las tarjetas pasan de cuatro columnas a dos y luego a una sola columna.
+
+CÓMO CAMBIAR EL ICONO DE LA PESTAÑA (FAVICON)
+Es el dibujito que aparece en la pestaña del navegador. Ya está puesto con el logo en el <head> de index.html y obras.html:
+<link rel="icon" type="image/png" href="Imagenes/logo.png">
+<link rel="apple-touch-icon" href="Imagenes/logo.png">
+Para cambiarlo: guardo la imagen nueva en Imagenes/ y cambio el nombre en href. Cada página nueva debe llevar estas dos líneas.
+Recomendaciones: usar un PNG cuadrado (512x512, fondo transparente o blanco) con el logo centrado y sin textos pequeños, porque se verá a 16 o 32 píxeles. El logo actual (330x375) no es cuadrado y se puede ver cortado o chico: conviene crear Imagenes/favicon.png cuadrado y apuntar el href allí.
+Si no cambia, el navegador guardó el anterior: recargar con Ctrl + F5 o abrir la página en una ventana privada.
+
+CÓMO AÑADIR, EDITAR, ACTIVAR Y DESACTIVAR OBRAS
+Todo se hace en Js/obras.js, dentro de la lista OBRAS. Cada obra es un bloque entre llaves { ... } separado del siguiente por una coma.
+Para añadir una: copio un bloque completo, lo pego al final de la lista (antes del ]) y cambio sus datos. Para quitarla: borro el bloque, o mejor pongo activo: false.
+Campos de cada obra:
+id: nombre único sin tildes, espacios ni mayúsculas (ej. "casa-lago"). Es también el nombre de su carpeta Imagenes/obras/casa-lago/.
+activo: true la muestra; false la oculta (no borra nada y se puede volver a activar).
+estado: "Terminada", "En proceso" o "Próxima" (tal cual, con mayúscula inicial y tilde).
+titulo, subtitulo: aparecen en la tarjeta y en el informe.
+portada: foto de la tarjeta. Sin "/" busca en la carpeta de la obra ("portada.jpg"); con "/" es una ruta completa ("Imagenes/proyecto_1.jpg").
+datos: ficha lateral opcional, pares "Nombre": "Valor". Se puede borrar la línea.
+descripcion: lista de módulos, en el orden en que aparecerán.
+Módulos de la descripción:
+  "Texto suelto"                                 párrafo normal.
+  { h: "Subtítulo" }                             subtítulo dentro del informe.
+  { cita: "Frase destacada" }                    cita con barra verde.
+  { img: ["01.jpg"], pie: "Texto opcional" }     imágenes. El diseño se elige solo:
+        1 imagen = publicación a todo el ancho · 2 a 4 = collage automático · 5 o más = carrusel con botones.
+        Se puede forzar con modo: "post", "collage" o "carrusel".
+Las imágenes se escriben solo con su nombre; el sistema las busca en Imagenes/obras/<id>/. Si el archivo no existe, aparece un recuadro punteado que dice qué ruta falta.
+Si el informe no tiene imágenes, se omiten los módulos img sin problema.
+Cuidado con las comas y las comillas: cada elemento de una lista lleva coma, excepto el último. Si la página queda en blanco, revisar eso.
+Importante: los informes de ejemplo mezclan datos de la entrevista con datos "Por confirmar". Reemplazar por los reales.
+
+CÓMO LLEVAR EL MENSAJE DE CONTACTO A OTRA SECCIÓN NUEVA
+En cualquier botón de la página añado data-asunto="tema" y apunta a #contacto. Ver la sección de mensajes prefabricados.
+
+CONSEJO
+Hago una copia de seguridad antes de modificar mucho el código. Cambio una cosa a la vez y recargo la página para ver el resultado.
+
+===========================================================================
+DESCRIPCIÓN DE LAS IMÁGENES POR COLOCAR
+===========================================================================
+Todas en horizontal, con luz natural de día y sin textos ni marcas de agua. Formato .jpg, máximo unos 300 KB cada una (comprimir antes de subir). Respetar los nombres exactamente: así la página las encuentra sola.
+
+--- Página principal (carpeta Imagenes/) ---
+confianza_obras.jpg (1200x800). Sección "Habla con quien ya construyó con nosotros", primera tarjeta. Una obra terminada vista de frente: casa o edificio completo con acabados listos, cielo despejado, sin personas ni vehículos en primer plano.
+confianza_clientes.jpg (1200x800). Segunda tarjeta. Un cliente propietario junto al maestro Luis frente a la obra que construyeron, ambos mirando a la cámara y sonriendo, de la cintura hacia arriba. Foto tomada con permiso del cliente.
+confianza_equipo.jpg (1200x800). Tercera tarjeta. La cuadrilla completa posando dentro de una obra, con casco y ropa de trabajo; debe verse orden y buen ambiente. Cámara a la altura de los ojos.
+alianzas.jpg (1200x800). Bloque "Construyamos juntos". Un lote plano y despejado, listo para construir, en vista amplia con el cielo; ideal con un letrero de "se vende" o con planos sobre una mesa en primer plano.
+cobertura.jpg (1000x660). Bloque "Donde nos necesiten". Un mapa sencillo en verdes de la marca con tres puntos marcados (Fusagasugá en grande, Melgar y El Carmen en pequeño) o una vista panorámica de Fusagasugá.
+proyecto_3.jpg (reemplazo recomendado, 1200x800). Hoy mide 144 px y se ve borrosa. Foto de una placa huella terminada, vista a lo largo del camino con perspectiva. Lo mismo aplica a proyecto_4.jpg, lotes.jpg y obra_3.jpg, que son muy pequeñas.
+
+--- Obra: Edificio de 7 apartamentos (Imagenes/obras/edificio-7-apartamentos/) ---
+01-fachada.jpg (1600x900, 16:9). Se muestra sola, a todo el ancho, como una publicación. La fachada completa del edificio desde la calle, con los siete apartamentos visibles y los muros pañetados.
+02-panete.jpg (1200x900, 4:3). Primera del collage. Primer plano de un muro recién pañetado, con textura pareja, donde se vea la calidad de la mano de obra.
+03-escaleras.jpg (1200x900, 4:3). Segunda del collage. La escalera principal terminada, tomada desde abajo hacia arriba, con buena luz.
+04-estructura.jpg (1200x900, 4:3). Tercera del collage. Vista interior de un apartamento con columnas y muros listos para el enchape, sin escombros en el piso.
+
+--- Obra: Casa de 3 pisos (Imagenes/obras/casa-3-pisos/) --- (cinco imágenes: forman el carrusel, todas 1600x900, 16:9)
+01-fachada.jpg. La casa completa de frente, mostrando sus tres pisos y el sector exclusivo alrededor.
+02-sala.jpg. La sala principal desde una esquina, con pisos y paredes terminados, luz entrando por las ventanas.
+03-cocina.jpg. La cocina completa: mesones, enchapes y acabados de primera, sin utensilios sueltos.
+04-bano.jpg. Un baño terminado, con enchapes, grifería y divisiones; tomado desde la puerta.
+05-escalera.jpg. La escalera entre pisos con sus acabados, tomada desde el primer piso hacia arriba.
+
+--- Obra: Placa huella (Imagenes/obras/placa-huella/) ---
+01-obra-similar.jpg (1600x900, 16:9). Una placa huella que ya construyeron, vista a lo largo del camino con perspectiva, mostrando las dos franjas de concreto y el entorno.
+
+
+CÓMO FUNCIONA EL FORMULARIO DE CONTACTO (envío de correo con Resend)
+El formulario está en la sección Contacto de index.html y de obras.html.
+Pide: nombre, correo, número de contacto, solicitud (lista) y motivo (texto libre).
+Js/formulario.js toma los datos y los manda a api/enviar.js, que arma el correo y lo envía con Resend.
+El correo llega a DESTINO_EMAIL; al darle "Responder" le escribes directo al cliente.
+Los tres datos secretos NO van en el código, van en las variables de entorno de Vercel:
+RESEND_API_KEY (clave de Resend), DESTINO_EMAIL (quién recibe) y REMITENTE_EMAIL (quién envía, de un dominio verificado en Resend).
+En el archivo .env.example está la plantilla de esas variables.
+Para cambiar las opciones de "Solicitud": editar el <select> en index.html y obras.html Y la lista SOLICITUDES al inicio de api/enviar.js (deben decir exactamente lo mismo).
+Los botones con data-asunto también dejan elegida la opción correcta en el selector (la lista está en Js/script.js).
+Importante: el formulario solo envía cuando la página está publicada en Vercel (o con "vercel dev"). Abierta como archivo suelta no envía.
