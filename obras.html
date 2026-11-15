@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obras e informes · Constructora e Inmobiliaria Medina S.A.S.</title>
+    <link rel="icon" type="image/png" href="Imagenes/logo.png">
+    <link rel="apple-touch-icon" href="Imagenes/logo.png">
+    <link rel="stylesheet" href="Css/Estilos.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html#inicio">
+            <img src="Imagenes/logo.png" alt="Logo de Medina S.A.S.">
+            <span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span>
+        </a>
+        <nav class="menu">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#servicios">Servicios</a>
+            <a href="obras.html" aria-current="page">Obras</a>
+            <a href="index.html#inmobiliaria">Inmobiliaria</a>
+            <a href="index.html#preguntas">Preguntas</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+        <a class="boton boton-verde boton-menu" href="#contacto" data-asunto="la cotización de mi proyecto">Solicitar cotización →</a>
+    </header>
+
+    <main class="seccion">
+        <div class="titulo-seccion" id="intro">
+            <div><p class="etiqueta">OBRAS E INFORMES</p><h2>Obras que hablan por nosotros</h2></div>
+            <p class="texto-lateral">Terminadas, en proceso y próximas a comenzar. Abre un informe para ver el avance, las fotos y los detalles.</p>
+        </div>
+        <div id="obras"></div>  <!-- Se llena sola desde Js/obras.js -->
+    </main>
+
+    <section class="contacto" id="contacto">
+        <div><p class="etiqueta">CONTÁCTANOS</p><h2>¿Listo para construir<br>tu proyecto?</h2></div>
+        <div><p>Escríbenos por WhatsApp o correo electrónico.<br>Estaremos encantados de asesorarte.</p><div class="botones"><a class="boton boton-verde" data-canal href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a><a class="boton boton-transparente" data-canal href="mailto:conimed4@gmail.com">✉ Correo electrónico</a></div><small id="mensaje"></small></div>
+    </section>
+
+    <footer class="pie">
+        <div class="pie-final"><span>Construimos confianza, construimos futuro.</span><span>© 2026 Constructora e Inmobiliaria Medina S.A.S.</span></div>
+    </footer>
+    <script src="Js/script.js"></script>
+    <script src="Js/obras.js"></script>
+</body>
+</html>

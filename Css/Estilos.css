@@ -9,6 +9,7 @@
 
 html {
     scroll-behavior: smooth; /* Hace suave el desplazamiento al tocar un enlace del menú. */
+    scroll-padding-top: 85px; /* El encabezado anclado no tapa el título de la sección. */
 }
 
 body {
@@ -51,8 +52,12 @@ p {
 }
 
 .encabezado {
-    min-height: 82px;
-    padding: 12px 6.5%;
+    position: sticky; /* Se queda anclado arriba al desplazarse. */
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    min-height: 70px;
+    padding: 8px 6.5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,17 +99,45 @@ p {
 }
 
 .boton {
+    position: relative;
+    overflow: hidden;
     display: inline-block;
-    padding: 11px 18px;
-    border-radius: 7px;
-    font-size: 12px;
+    padding: 13px 22px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: bold;
     text-align: center;
-    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s, background 0.2s;
+}
+
+/* Destello que cruza el botón al pasar el cursor. */
+.boton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
 }
 
 .boton:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+.boton:hover::after {
+    transform: translateX(100%);
+}
+
+.boton:active {
+    transform: scale(0.97);
+}
+
+.boton:focus-visible {
+    outline: 3px solid #f1c24b;
+    outline-offset: 2px;
 }
 
 .boton-verde {
@@ -121,6 +154,10 @@ p {
     color: white;
     border: 1px solid currentColor;
     background: transparent;
+}
+
+.boton-transparente:hover {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 .banner {
@@ -245,10 +282,15 @@ p {
     box-shadow: 0 3px 10px rgba(30, 45, 37, 0.04);
 }
 
-.foto-tarjeta {
+/* Todas las fotos llenan su contenedor sin deformarse. */
+.foto-tarjeta, .nosotros > img, .inmobiliaria > img {
     width: 100%;
-    height: 130px;
+    height: 100%;
     object-fit: cover;
+}
+
+.foto-tarjeta {
+    height: 130px;
 }
 
 .tarjeta-texto {
@@ -278,9 +320,16 @@ p {
     margin-bottom: 8px;
 }
 
-.tarjeta-texto a {
+.tarjeta-texto a:not(.boton) {
+    display: inline-block;
     color: #0b4a3b;
     font-size: 22px;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.tarjeta-texto a:not(.boton):hover {
+    color: #c82335;
+    transform: translateX(6px);
 }
 
 .proyecto .foto-tarjeta {
@@ -304,16 +353,12 @@ p {
 .nosotros {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    align-items: stretch; /* La foto ocupa toda la altura del bloque. */
+    min-height: 330px;
     gap: 45px;
     background: #fffefa;
 }
 
-.nosotros > img {
-    width: 100%;
-    height: 330px;
-    object-fit: cover;
-}
 
 .nosotros-texto {
     padding: 38px 10% 38px 0;
@@ -411,15 +456,11 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr 0.8fr;
     align-items: center;
+    min-height: 220px;
     gap: 35px;
     background: #f3f1ea;
 }
 
-.inmobiliaria > img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
 
 .inmobiliaria-texto {
     padding: 28px 0;
@@ -480,8 +521,9 @@ p {
 .contacto small {
     display: block;
     color: #c6d8ce;
-    font-size: 10px;
-    margin-top: 10px;
+    font-size: 11px;
+    font-style: italic;
+    margin-top: 14px;
 }
 
 .pie {
@@ -594,6 +636,13 @@ p {
     .menu {
         gap: 12px;
         font-size: 11px;
+        flex-wrap: nowrap; /* Una sola fila con desplazamiento lateral: el encabezado ocupa menos. */
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    html {
+        scroll-padding-top: 110px;
     }
 
     .banner {
@@ -726,4 +775,73 @@ p {
     .pie-final {
         flex-direction: column;
     }
+}
+
+/* ===== OBRAS, INFORMES Y NUEVAS SECCIONES ===== */
+
+/* Botón con contorno para fondos claros (el transparente solo se ve sobre fondos oscuros). */
+.boton { cursor: pointer; font-family: inherit; }
+.boton-contorno { color: #0d4035; background: #fff; border: 2px solid #0d4035; }
+.boton-contorno:hover, .boton-contorno[aria-pressed="true"] { color: #fff; background: #0d4035; }
+.menu [aria-current] { font-weight: bold; border-bottom: 2px solid #c82335; }
+.confianza .botones { margin-top: 22px; }
+
+/* Etiqueta de estado: informativa, sin relieve ni sombra para que no parezca botón. */
+.estado { display: inline-block; margin-bottom: 8px; padding: 2px 10px; border: 1px solid #b9b4a6; border-radius: 99px; background: #f3f1ea; color: #4a554f; font-size: 12px; }
+.estado::before { content: "●"; margin-right: 6px; color: #08784d; }
+.estado[data-e="En proceso"]::before { color: #b7791f; }
+.estado[data-e="Próxima"]::before { color: #4a6fa5; }
+
+/* Listado */
+.filtros { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.tarjetas-obras, .tarjetas-proyectos { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.tarjeta-obra .foto-tarjeta { height: 170px; }
+.tarjeta-obra .boton { margin-top: 8px; }
+.tarjeta-cta { display: grid; align-content: center; color: #fff; background: #0d4035; }
+.tarjeta-cta h3, .tarjeta-cta p { color: #fff; }
+.alianzas { background: #fffefa; }
+
+/* Informe */
+.volver { display: block; margin-bottom: 14px; color: #0d4035; text-decoration: underline; }
+.informe h1 { margin: 4px 0 6px; color: #0d4035; font-size: 36px; }
+.informe-sub { max-width: 70ch; color: #4a554f; font-size: 17px; }
+.informe-portada { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; border-radius: 6px; }
+.informe-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 40px; margin-top: 24px; }
+.informe-cuerpo p { max-width: 68ch; color: #2c3b35; font-size: 16px; line-height: 1.65; }
+.informe-cuerpo h3 { margin-top: 30px; color: #0d4035; font-size: 22px; }
+.informe-cita { margin: 26px 0; padding: 4px 0 4px 18px; border-left: 4px solid #08784d; color: #0d4035; font: italic 20px/1.4 Georgia, serif; }
+.ficha { position: sticky; top: 96px; align-self: start; margin: 0; padding: 6px 18px 18px; background: #fffefa; border: 1px solid #e6e2d9; border-radius: 6px; font-size: 13px; }
+.ficha dt { margin-top: 12px; color: #0d4035; font-weight: bold; }
+.ficha dd { margin: 2px 0 0; }
+
+/* Imágenes del informe: una sola = publicación, 2 a 4 = collage, 5 o más = carrusel. */
+.galeria { margin: 26px 0; }
+.galeria img, .foto-falta { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+.galeria figcaption { margin-top: 8px; color: #5f6c65; font-size: 13px; }
+.galeria-post > *, .pista > * { aspect-ratio: 16 / 9; }
+.galeria-collage { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.galeria-collage > * { aspect-ratio: 4 / 3; }
+.galeria-collage > :first-child:nth-last-child(odd) { grid-column: 1 / -1; aspect-ratio: 16 / 9; }  /* Con cantidad impar, la primera abre a todo el ancho. */
+.pista { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; }
+.pista > * { flex: 0 0 100%; scroll-snap-align: center; }
+.carrusel-botones { display: flex; gap: 8px; margin-top: 10px; }
+
+/* Recuadro que aparece donde aún falta una imagen. */
+.foto-falta { display: grid; place-items: center; min-height: 130px; padding: 12px; background: #ebe8df; border: 2px dashed #b9b4a6; color: #5f6c65; font-size: 12px; text-align: center; word-break: break-all; }
+
+/* Preguntas frecuentes */
+.faq details { max-width: 820px; padding: 14px 0; border-bottom: 1px solid #dedbd2; }
+.faq summary { cursor: pointer; color: #0d4035; font-weight: bold; }
+.faq summary:focus-visible { outline: 3px solid #f1c24b; outline-offset: 3px; }
+.faq details p { margin: 10px 0 0; color: #4a554f; font-size: 14px; }
+
+@media (max-width: 900px) {
+    .informe-grid { grid-template-columns: 1fr; }
+    .ficha { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .boton, .boton::after, .tarjeta-texto a { transition: none; }
+    .pista { scroll-behavior: auto; }
 }
