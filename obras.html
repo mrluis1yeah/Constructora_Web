@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obras e informes · Constructora e Inmobiliaria Medina S.A.S.</title>
+    <link rel="icon" type="image/png" href="Imagenes/logo.png">
+    <link rel="apple-touch-icon" href="Imagenes/logo.png">
+    <link rel="stylesheet" href="Css/Estilos.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html#inicio">
+            <img src="Imagenes/logo.png" alt="Logo de Medina S.A.S.">
+            <span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span>
+        </a>
+        <button class="hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal"><span></span><span></span><span></span></button>
+        <nav class="menu" id="menu-principal" aria-label="Menú principal">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#servicios">Servicios</a>
+            <a href="obras.html" aria-current="page">Obras</a>
+            <a href="index.html#inmobiliaria">Inmobiliaria</a>
+            <a href="index.html#preguntas">Preguntas</a>
+            <a href="#contacto">Contacto</a>
+            <a class="boton boton-verde menu-cta" href="#contacto" data-asunto="la cotización de mi proyecto">Solicitar cotización →</a>
+        </nav>
+        <a class="boton boton-verde boton-menu" href="#contacto" data-asunto="la cotización de mi proyecto">Solicitar cotización →</a>
+    </header>
+
+    <main class="seccion">
+        <div class="titulo-seccion" id="intro">
+            <div><p class="etiqueta">OBRAS E INFORMES</p><h2>Obras que hablan por nosotros</h2></div>
+            <p class="texto-lateral">Terminadas, en proceso y próximas a comenzar. Abre un informe para ver el avance, las fotos y los detalles.</p>
+        </div>
+        <div id="obras"></div>  <!-- Se llena sola desde Js/obras.js -->
+    </main>
+
+    <section class="contacto" id="contacto">
+        <div class="contacto-info">
+            <p class="etiqueta">CONTÁCTANOS</p>
+            <h2>¿Listo para construir<br>tu proyecto?</h2>
+            <p>Déjanos tus datos y te responderemos lo antes posible.<br>También puedes escribirnos directamente por WhatsApp.</p>
+            <div class="botones"><a class="boton boton-verde" data-canal href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a></div>
+            <small id="mensaje"></small>
+        </div>
+
+        <!-- FORMULARIO: Js/formulario.js lo envía a api/enviar.js, que manda el correo con Resend -->
+        <form class="formulario" id="formulario-contacto" aria-labelledby="titulo-formulario">
+            <h3 id="titulo-formulario">Envíanos tu solicitud</h3>
+            <div class="campos">
+                <label>Nombre completo
+                    <input type="text" name="nombre" autocomplete="name" minlength="2" maxlength="100" placeholder="Tu nombre" required>
+                </label>
+                <label>Correo electrónico
+                    <input type="email" name="correo" autocomplete="email" maxlength="150" placeholder="ejemplo@correo.com" required>
+                </label>
+                <label>Número de contacto
+                    <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="321 000 0000" required>
+                </label>
+                <label>Solicitud
+                    <select id="solicitud" name="solicitud" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option>Cotización de un proyecto</option>
+                        <option>Construcción desde cero</option>
+                        <option>Remodelación</option>
+                        <option>Diseño y apoyo técnico</option>
+                        <option>Proyectos inmobiliarios y lotes</option>
+                        <option>Información sobre una obra</option>
+                        <option>Otra</option>
+                    </select>
+                </label>
+                <label class="campo-ancho">Motivo
+                    <textarea name="motivo" rows="4" minlength="10" maxlength="3000" placeholder="Cuéntanos qué necesitas: tipo de obra, ubicación, medidas aproximadas, fechas..." required></textarea>
+                </label>
+            </div>
+
+            <!-- Campo trampa contra bots: no se ve y debe quedar vacío -->
+            <div class="trampa" aria-hidden="true">
+                <label>No llenar este campo <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <button class="boton boton-rojo" type="submit">Enviar solicitud →</button>
+            <div class="formulario-estado" id="estado-formulario" role="status" aria-live="polite"></div>
+        </form>
+    </section>
+
+    <footer class="pie">
+        <div class="pie-superior"><a class="marca marca-pie" href="index.html#inicio"><img src="Imagenes/logo.png" alt=""><span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span></a><div class="redes"><span class="redes-titulo">Síguenos en:</span><a href="https://www.facebook.com/Mastermedina45" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/mastermedina45" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg><span>Instagram</span></a><a href="https://www.youtube.com/@Mastermedina45" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg><span>YouTube</span></a><a href="https://www.tiktok.com/@mastermedina45" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a></div></div>
+        <div class="pie-final"><span>Construimos confianza, construimos futuro.</span><span>© 2026 Constructora e Inmobiliaria Medina S.A.S.</span></div>
+    </footer>
+    <aside class="redes-lateral" aria-label="Redes sociales">
+        <a href="https://www.facebook.com/Mastermedina45" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/mastermedina45" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@Mastermedina45" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg></a>
+        <a href="https://www.tiktok.com/@mastermedina45" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+    </aside>
+
+    <script src="Js/script.js"></script>
+    <script src="Js/formulario.js"></script>
+    <script src="Js/obras.js"></script>
+</body>
+</html>
