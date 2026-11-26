@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obras e informes · Constructora e Inmobiliaria Medina S.A.S.</title>
+    <link rel="icon" type="image/png" href="Imagenes/logo.png">
+    <link rel="apple-touch-icon" href="Imagenes/logo.png">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#fffefa">
+    <!-- Se ejecuta antes de pintar la página para que no haya un destello del modo equivocado. -->
+    <script>(function(){var d=document.documentElement,t=null;d.classList.add("js");try{t=localStorage.getItem("tema")}catch(e){}if(t!=="claro"&&t!=="oscuro"){t=matchMedia("(prefers-color-scheme: dark)").matches?"oscuro":"claro"}d.dataset.tema=t})();</script>
+    <link rel="stylesheet" href="Css/Estilos.css">
+    <link rel="stylesheet" href="Css/Efectos.css">
+</head>
+<body>
+
+    <!-- PANTALLA DE CARGA: el logo se "construye" de abajo hacia arriba. Js/efectos.js la retira al terminar de cargar. -->
+    <div class="cargador" role="status" aria-label="Cargando">
+        <div class="cargador-centro">
+            <div class="cargador-logo">
+                <svg class="cargador-aro" viewBox="0 0 200 200" aria-hidden="true"><circle class="aro-base" cx="100" cy="100" r="92"/><circle class="aro-trazo" cx="100" cy="100" r="92"/></svg>
+                <img src="Imagenes/logo.png" alt="">
+            </div>
+            <p class="cargador-marca">MEDINA <span>S.A.S.</span></p>
+            <div class="cargador-barra" aria-hidden="true"><span></span></div>
+        </div>
+    </div>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html#inicio">
+            <img src="Imagenes/logo.png" alt="Logo de Medina S.A.S.">
+            <span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span>
+        </a>
+        <button class="hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal"><span></span><span></span><span></span></button>
+        <nav class="menu" id="menu-principal" aria-label="Menú principal">
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#servicios">Servicios</a>
+            <a href="obras.html" aria-current="page">Obras</a>
+            <a href="index.html#inmobiliaria">Inmobiliaria</a>
+            <a href="index.html#preguntas">Preguntas</a>
+            <a href="#contacto">Contacto</a>
+            <div class="menu-tema"><span>Modo oscuro</span><button class="tema-selector" type="button" role="switch" aria-checked="false" aria-label="Modo oscuro" title="Modo claro / oscuro" data-tema-toggle><span class="tema-perilla"><svg class="ico-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg><svg class="ico-luna" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.6A9 9 0 0 1 9.4 3a9 9 0 1 0 11.6 11.6z"/></svg></span></button></div>
+            <a class="boton boton-verde menu-cta" href="#contacto" data-asunto="la cotización de mi proyecto">Solicitar cotización →</a>
+        </nav>
+        <button class="tema-selector" type="button" role="switch" aria-checked="false" aria-label="Modo oscuro" title="Modo claro / oscuro" data-tema-toggle><span class="tema-perilla"><svg class="ico-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg><svg class="ico-luna" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.6A9 9 0 0 1 9.4 3a9 9 0 1 0 11.6 11.6z"/></svg></span></button>
+        <a class="boton boton-verde boton-menu" href="#contacto" data-asunto="la cotización de mi proyecto">Solicitar cotización →</a>
+    </header>
+
+    <main class="seccion">
+        <div class="titulo-seccion" id="intro">
+            <div><p class="etiqueta">OBRAS E INFORMES</p><h2>Obras que <span class="neon">hablan</span> por nosotros</h2></div>
+            <p class="texto-lateral">Terminadas, en proceso y próximas a comenzar. Abre un informe para ver el avance, las fotos y los detalles.</p>
+        </div>
+        <div id="obras"></div>  <!-- Se llena sola desde Js/obras.js -->
+    </main>
+
+    <section class="contacto" id="contacto">
+        <div class="contacto-info">
+            <p class="etiqueta">CONTÁCTANOS</p>
+            <h2>¿Listo para <span class="neon">construir</span><br>tu proyecto?</h2>
+            <p>Déjanos tus datos y te responderemos lo antes posible.<br>También puedes escribirnos directamente por WhatsApp.</p>
+            <div class="botones"><a class="boton boton-verde" data-canal href="https://wa.me/573213709249" target="_blank" rel="noopener">WhatsApp</a></div>
+            <small id="mensaje"></small>
+        </div>
+
+        <!-- FORMULARIO: Js/formulario.js lo envía a api/enviar.js, que manda el correo con Resend -->
+        <form class="formulario" id="formulario-contacto" aria-labelledby="titulo-formulario">
+            <h3 id="titulo-formulario">Envíanos tu solicitud</h3>
+            <div class="campos">
+                <label>Nombre completo
+                    <input type="text" name="nombre" autocomplete="name" minlength="2" maxlength="100" placeholder="Tu nombre" required>
+                </label>
+                <label>Correo electrónico
+                    <input type="email" name="correo" autocomplete="email" maxlength="150" placeholder="ejemplo@correo.com" required>
+                </label>
+                <label>Número de contacto
+                    <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="321 000 0000" required>
+                </label>
+                <label>Solicitud
+                    <select id="solicitud" name="solicitud" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option>Cotización de un proyecto</option>
+                        <option>Construcción desde cero</option>
+                        <option>Remodelación</option>
+                        <option>Diseño y apoyo técnico</option>
+                        <option>Proyectos inmobiliarios y lotes</option>
+                        <option>Información sobre una obra</option>
+                        <option>Otra</option>
+                    </select>
+                </label>
+                <label class="campo-ancho">Motivo
+                    <textarea name="motivo" rows="4" minlength="10" maxlength="3000" placeholder="Cuéntanos qué necesitas: tipo de obra, ubicación, medidas aproximadas, fechas..." required></textarea>
+                </label>
+            </div>
+
+            <!-- Campo trampa contra bots: no se ve y debe quedar vacío -->
+            <div class="trampa" aria-hidden="true">
+                <label>No llenar este campo <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <button class="boton boton-rojo" type="submit">Enviar solicitud →</button>
+            <div class="formulario-estado" id="estado-formulario" role="status" aria-live="polite"></div>
+        </form>
+    </section>
+
+    <footer class="pie">
+        <div class="pie-superior"><a class="marca marca-pie" href="index.html#inicio"><img src="Imagenes/logo.png" alt=""><span>Constructora e inmobiliaria<br><strong>MEDINA S.A.S.</strong></span></a><div class="redes"><span class="redes-titulo">Síguenos en:</span><a href="https://www.facebook.com/Mastermedina45" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/mastermedina45" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg><span>Instagram</span></a><a href="https://www.youtube.com/@Mastermedina45" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg><span>YouTube</span></a><a href="https://www.tiktok.com/@mastermedina45" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a></div></div>
+        <div class="pie-final"><span>Construimos confianza, construimos futuro.</span><span>© 2026 Constructora e Inmobiliaria Medina S.A.S.</span></div>
+    </footer>
+    <aside class="redes-lateral" aria-label="Redes sociales">
+        <a href="https://www.facebook.com/Mastermedina45" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/mastermedina45" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@Mastermedina45" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg></a>
+        <a href="https://www.tiktok.com/@mastermedina45" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+    </aside>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP. El número se toma del botón "WhatsApp" de Contacto (data-canal), así solo se cambia allí. -->
+    <a class="whatsapp-flotante" data-wa-flotante href="https://wa.me/573213709249?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20la%20cotizaci%C3%B3n%20de%20mi%20proyecto." target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+        <span class="wa-etiqueta">¿Hablamos?</span>
+        <span class="wa-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>
+    </a>
+
+    <script src="Js/script.js"></script>
+    <script src="Js/formulario.js"></script>
+    <script src="Js/obras.js"></script>
+    <script src="Js/efectos.js"></script>
+</body>
+</html>

@@ -138,3 +138,14 @@ En el archivo .env.example está la plantilla de esas variables.
 Para cambiar las opciones de "Solicitud": editar el <select> en index.html y obras.html Y la lista SOLICITUDES al inicio de api/enviar.js (deben decir exactamente lo mismo).
 Los botones con data-asunto también dejan elegida la opción correcta en el selector (la lista está en Js/script.js).
 Importante: el formulario solo envía cuando la página está publicada en Vercel (o con "vercel dev"). Abierta como archivo suelta no envía.
+
+
+===========================================================================
+EFECTOS, MODO OSCURO Y WHATSAPP FLOTANTE (Css/Efectos.css y Js/efectos.js)
+===========================================================================
+Css/Efectos.css se carga después de Estilos.css y reúne: pantalla de carga, selector claro/oscuro, botones de alto impacto, animaciones, botón de WhatsApp y el modo oscuro. Js/efectos.js los pone en marcha. Cada página nueva debe llevar el <link> a Efectos.css, el <script> de efectos.js al final, la pantalla de carga (bloque class="cargador") y el pequeño script del <head> que recuerda el modo.
+PANTALLA DE CARGA: el logo se "construye" de abajo hacia arriba. Dura unos 2 segundos la primera vez y menos al cambiar de página. Para cambiar el tiempo: constante "minimo" en Js/efectos.js.
+MODO CLARO/OSCURO: el selector (sol/luna) está en el encabezado junto a la hamburguesa, también en tablets. Solo en espacios críticos (menos de 200 px de ancho) pasa al menú desplegable. Se recuerda la elección; si nunca se eligió, se usa el modo del sistema. Los colores del modo oscuro están al inicio de Efectos.css (--o-neon, --o-neon-rojo, --o-fondo...).
+PALABRAS QUE PARPADEAN: envolver la palabra así: <span class="neon">palabra</span> (verde) o <span class="neon neon-rojo">palabra</span> (rojo). En modo claro es un resaltado sobrio; en modo oscuro es neón con parpadeo suave. Conviene usar pocas por pantalla.
+WHATSAPP FLOTANTE: usa el mismo número del botón "WhatsApp" de Contacto (el de data-canal), así el número solo se cambia ahí (y de respaldo en el href del botón flotante, class="whatsapp-flotante").
+MOVIMIENTO: quien tenga activado "reducir movimiento" en su sistema no ve parpadeos ni animaciones largas.

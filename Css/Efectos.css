@@ -1,0 +1,844 @@
+/* ==========================================================================
+   EFECTOS.CSS
+   Todo lo "extra" de la página vive aquí para no mezclarlo con Estilos.css:
+     1. Pantalla de carga con el logotipo animado
+     2. Selector de modo claro / oscuro
+     3. Botones de alto impacto
+     4. Animaciones al cargar y al desplazarse (sobrias)
+     5. Botón flotante de WhatsApp
+     6. Modo oscuro con neón sutil y palabras que parpadean
+     7. Respeto a "reducir movimiento" del sistema
+   Este archivo se carga DESPUÉS de Estilos.css, por eso puede reemplazar sus reglas.
+   ========================================================================== */
+
+:root {
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);   /* Entrada suave, sin rebotes. */
+    --ease-salida: cubic-bezier(0.4, 0, 0.2, 1);
+    color-scheme: light;
+}
+
+/* Paleta del modo oscuro: aquí se ajusta el "neón" sin tocar el resto. */
+:root[data-tema="oscuro"] {
+    color-scheme: dark;
+    --o-fondo: #09110f;
+    --o-suave: #0d1816;
+    --o-superficie: #111e1b;
+    --o-borde: #1f3831;
+    --o-texto: #cfe0d8;
+    --o-apagado: #98afa4;
+    --o-titulo: #e6fff4;
+    --o-neon: #3dffb0;        /* verde neón (acento principal) */
+    --o-neon-rojo: #ff5d7c;   /* rojo-rosa neón (acento secundario, del rojo de la marca) */
+}
+
+::selection { background: #08784d; color: #fff; }
+:root[data-tema="oscuro"] ::selection { background: rgba(61, 255, 176, 0.35); color: #fff; }
+
+/* ==========================================================================
+   1. PANTALLA DE CARGA
+   ========================================================================== */
+.cargador { display: none; }   /* Sin JavaScript nunca aparece. */
+
+.js .cargador {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(60% 50% at 50% 42%, rgba(8, 120, 77, 0.10), transparent 70%),
+        #faf8f3;
+    transition: opacity 0.7s var(--ease-salida), visibility 0.7s, transform 0.9s var(--ease);
+    /* Red de seguridad: si algo falla, se retira sola a los 7 segundos. */
+    animation: cargador-seguro 0.4s 7s forwards;
+}
+
+.cargador.salida {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(1.04);
+}
+
+.cargador-centro {
+    display: grid;
+    justify-items: center;
+    gap: 22px;
+    text-align: center;
+}
+
+.cargador-logo {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    display: grid;
+    place-items: center;
+}
+
+.cargador-logo img {
+    width: 98px;
+    height: auto;
+    /* El logo "se construye" de abajo hacia arriba, como una obra. */
+    animation: logo-construye 1.5s 0.25s var(--ease) both, logo-respira 3.2s 1.8s ease-in-out infinite;
+}
+
+.cargador-aro {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    overflow: visible;
+}
+
+.cargador-aro circle {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+
+.aro-base { stroke: rgba(13, 64, 53, 0.12); }
+
+.aro-trazo {
+    stroke: #08784d;
+    stroke-dasharray: 578;
+    stroke-dashoffset: 578;
+    animation: aro-dibuja 1.9s 0.1s var(--ease) forwards;
+}
+
+.cargador-marca {
+    margin: 0;
+    color: #0d4035;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 6px;
+    text-indent: 6px;               /* Compensa el espacio final para que quede centrado. */
+    animation: aparece-arriba 0.9s 0.9s var(--ease) both;
+}
+
+.cargador-marca span { color: #b01c2d; }
+
+.cargador-barra {
+    width: 150px;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: rgba(13, 64, 53, 0.2);
+    animation: aparece-arriba 0.9s 1.1s var(--ease) both;
+}
+
+.cargador-barra span {
+    display: block;
+    width: 40%;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #08784d, #c82335);
+    animation: barra-viaja 1.3s 1.2s var(--ease-salida) infinite;
+}
+
+@keyframes logo-construye {
+    from { clip-path: inset(100% 0 0 0); opacity: 0.2; transform: translateY(14px); }
+    to   { clip-path: inset(0 0 0 0);    opacity: 1;   transform: translateY(0); }
+}
+@keyframes logo-respira {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-4px) scale(1.03); }
+}
+@keyframes aro-dibuja { to { stroke-dashoffset: 0; } }
+@keyframes barra-viaja {
+    from { transform: translateX(-110%); }
+    to   { transform: translateX(260%); }
+}
+@keyframes aparece-arriba {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cargador-seguro { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+
+:root[data-tema="oscuro"].js .cargador {
+    background:
+        radial-gradient(60% 50% at 50% 42%, rgba(61, 255, 176, 0.10), transparent 70%),
+        #060d0b;
+}
+:root[data-tema="oscuro"] .aro-base { stroke: rgba(61, 255, 176, 0.14); }
+:root[data-tema="oscuro"] .aro-trazo { stroke: var(--o-neon); filter: drop-shadow(0 0 6px rgba(61, 255, 176, 0.7)); }
+:root[data-tema="oscuro"] .cargador-logo img { filter: drop-shadow(0 0 10px rgba(61, 255, 176, 0.35)); }
+:root[data-tema="oscuro"] .cargador-marca { color: var(--o-titulo); text-shadow: 0 0 14px rgba(61, 255, 176, 0.35); }
+:root[data-tema="oscuro"] .cargador-marca span { color: var(--o-neon-rojo); }
+:root[data-tema="oscuro"] .cargador-barra { background: rgba(61, 255, 176, 0.12); }
+:root[data-tema="oscuro"] .cargador-barra span { background: linear-gradient(90deg, var(--o-neon), var(--o-neon-rojo)); box-shadow: 0 0 10px rgba(61, 255, 176, 0.6); }
+
+/* ==========================================================================
+   2. SELECTOR DE MODO CLARO / OSCURO
+   ========================================================================== */
+.tema-selector {
+    --ancho: 58px;
+    --alto: 32px;
+    --m: 3px;
+    position: relative;
+    flex-shrink: 0;
+    width: var(--ancho);
+    height: var(--alto);
+    padding: 0;
+    cursor: pointer;
+    border: 1px solid #dccf9f;
+    border-radius: 99px;
+    background: linear-gradient(180deg, #fff3c8, #ffe39a);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: background 0.5s var(--ease), border-color 0.4s, box-shadow 0.4s, transform 0.25s var(--ease);
+}
+.tema-selector:hover { transform: scale(1.06); }
+.tema-selector:active { transform: scale(0.95); }
+.tema-selector:focus-visible { outline: 3px solid #f1c24b; outline-offset: 2px; }
+
+.tema-perilla {
+    position: absolute;
+    top: var(--m);
+    left: var(--m);
+    width: calc(var(--alto) - 2px - 2 * var(--m));
+    height: calc(var(--alto) - 2px - 2 * var(--m));
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    color: #d68a00;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.55s var(--ease), background 0.4s, color 0.4s, box-shadow 0.4s;
+}
+
+.tema-perilla svg {
+    grid-area: 1 / 1;
+    width: 15px;
+    height: 15px;
+    transition: transform 0.55s var(--ease), opacity 0.3s;
+}
+.ico-luna { opacity: 0; transform: rotate(-80deg) scale(0.5); }
+
+.tema-selector[aria-checked="true"] {
+    border-color: #2b5a4b;
+    background: linear-gradient(180deg, #0a1c17, #11302a);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 12px rgba(61, 255, 176, 0.28);
+}
+.tema-selector[aria-checked="true"] .tema-perilla {
+    transform: translateX(calc(var(--ancho) - var(--alto)));
+    background: #08120f;
+    color: var(--o-neon, #3dffb0);
+    box-shadow: 0 0 10px rgba(61, 255, 176, 0.65);
+}
+.tema-selector[aria-checked="true"] .ico-sol  { opacity: 0; transform: rotate(80deg) scale(0.5); }
+.tema-selector[aria-checked="true"] .ico-luna { opacity: 1; transform: none; }
+
+/* El selector del menú queda en el encabezado, junto a la hamburguesa, en escritorio y en tablets. */
+.menu-tema { display: none; }   /* Copia dentro del menú desplegable: solo para espacios críticos. */
+
+@media (max-aspect-ratio: 1/1), (max-width: 1180px) {
+    .encabezado > .tema-selector { order: 1; }
+    .hamburguesa { order: 2; }
+}
+@media (max-width: 360px) {
+    .tema-selector { --ancho: 52px; --alto: 30px; --m: 3px; }
+}
+
+/* ESPACIO CRÍTICO (menos de 200 px): el selector sale del encabezado y pasa al menú desplegable. */
+@media (max-width: 199px) {
+    .encabezado > .tema-selector { display: none; }
+    .menu-tema {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 10px 2px;
+        font-size: 12px;
+        border-bottom: 1px solid #eeebe2;
+    }
+}
+
+/* ==========================================================================
+   3. BOTONES DE ALTO IMPACTO
+   ========================================================================== */
+.boton {
+    padding: 14px 26px;
+    border-radius: 10px;
+    letter-spacing: 0.3px;
+    isolation: isolate;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), filter 0.3s, background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.boton-rojo {
+    background: linear-gradient(135deg, #ea3a4e 0%, #c82335 52%, #a3152a 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.16),
+        0 10px 22px -6px rgba(200, 35, 53, 0.6);
+}
+.boton-verde {
+    background: linear-gradient(135deg, #0ca46d 0%, #08784d 52%, #055d3b 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.18),
+        0 10px 22px -6px rgba(8, 120, 77, 0.6);
+}
+.boton-transparente {
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+
+/* Brillo que cruza el botón al pasar el cursor. */
+.boton::after {
+    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.42) 50%, transparent 75%);
+    transition: transform 0.75s var(--ease);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.boton:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.06) saturate(1.05);
+}
+.boton-rojo:hover  { box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -3px 0 rgba(0,0,0,.16), 0 16px 30px -6px rgba(200, 35, 53, 0.75); }
+.boton-verde:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.18), 0 16px 30px -6px rgba(8, 120, 77, 0.75); }
+.boton-transparente:hover { background: rgba(255, 255, 255, 0.22); border-color: #fff; box-shadow: 0 14px 28px -8px rgba(0, 0, 0, 0.6); }
+.boton:active { transform: translateY(-1px) scale(0.97); transition-duration: 0.1s; }
+
+/* Contorno (filtros de obras y carrusel): se rellena al pasar el cursor. */
+.boton-contorno { border: 2px solid #0d4035; box-shadow: none; }
+.boton-contorno:hover { box-shadow: 0 10px 20px -8px rgba(13, 64, 53, 0.55); }
+
+/* La flecha "→" se desliza al pasar el cursor (Js/efectos.js la separa del texto). */
+.flecha { display: inline-block; margin-left: 2px; transition: transform 0.35s var(--ease); }
+.boton:hover .flecha, .tarjeta-texto a:hover .flecha { transform: translateX(6px); }
+
+/* Onda al hacer clic. */
+.onda {
+    position: absolute;
+    z-index: 2;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    pointer-events: none;
+    animation: onda 0.7s var(--ease-salida) forwards;
+}
+@keyframes onda { to { transform: scale(22); opacity: 0; } }
+
+/* El botón principal de la portada late suavemente para llamar la atención sin gritar. */
+.efectos.cargado .banner .boton-rojo {
+    animation: cta-pulso 3.4s 2.5s ease-in-out infinite;
+}
+.efectos.cargado .banner .boton-rojo::after {
+    animation: cta-destello 4.8s 3s var(--ease) infinite;
+}
+.banner .boton-rojo:hover, .banner .boton-rojo:hover::after { animation: none; }
+@keyframes cta-pulso {
+    0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.16), 0 10px 22px -6px rgba(200,35,53,.6), 0 0 0 0 rgba(234, 58, 78, 0.5); }
+    55%      { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.16), 0 10px 22px -6px rgba(200,35,53,.6), 0 0 0 14px rgba(234, 58, 78, 0); }
+}
+@keyframes cta-destello {
+    0%, 62% { transform: translateX(-100%); }
+    100%    { transform: translateX(100%); }
+}
+
+/* ==========================================================================
+   4. ANIMACIONES SOBRIAS
+   ========================================================================== */
+
+/* --- Entrada de la portada tras la pantalla de carga --- */
+.efectos .banner { position: relative; overflow: hidden; isolation: isolate; background: none; }
+.efectos .banner::before {
+    content: "";
+    position: absolute;
+    inset: -3%;
+    z-index: -1;
+    background-image: linear-gradient(90deg, rgba(7, 29, 24, 0.94), rgba(7, 29, 24, 0.65) 42%, rgba(7, 29, 24, 0.05)), url("../Imagenes/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    animation: kenburns 28s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+    from { transform: scale(1) translate3d(0, 0, 0); }
+    to   { transform: scale(1.09) translate3d(-1.2%, -0.8%, 0); }
+}
+
+.efectos .banner-contenido > * {
+    animation: entrada-hero 0.9s var(--ease) both;
+    animation-play-state: paused;
+}
+.efectos.cargado .banner-contenido > * { animation-play-state: running; }
+.banner-contenido > :nth-child(1) { animation-delay: 0.05s !important; }
+.banner-contenido > :nth-child(2) { animation-delay: 0.2s !important; }
+.banner-contenido > :nth-child(3) { animation-delay: 0.35s !important; }
+.banner-contenido > :nth-child(4) { animation-delay: 0.5s !important; }
+@keyframes entrada-hero {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Aparición al desplazarse (Js/efectos.js añade y retira estas clases) --- */
+.efectos .revela {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+}
+.efectos .revela.revela-img { transform: scale(1.05); transition-duration: 1.1s; }
+.efectos .revela.visible { opacity: 1; transform: none; }
+.nosotros { overflow: hidden; }
+
+/* --- Línea que crece junto a las etiquetas de sección --- */
+.etiqueta::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 2px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background: currentColor;
+    transition: width 0.9s 0.25s var(--ease);
+}
+.efectos .etiqueta::before { width: 0; margin-right: 0; transition: width 0.9s 0.25s var(--ease), margin 0.9s 0.25s var(--ease); }
+.efectos .visible .etiqueta::before,
+.efectos.cargado .banner .etiqueta::before { width: 26px; margin-right: 10px; }
+.efectos .sin-anim .etiqueta::before { width: 26px; margin-right: 10px; }
+
+/* --- Tarjetas: elevación y zoom de la foto --- */
+.tarjeta, .testimonio {
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.4s;
+}
+.tarjeta:hover, .testimonio:hover {
+    transform: translateY(-7px);
+    border-color: #bfd6cb;
+    box-shadow: 0 22px 38px -16px rgba(13, 64, 53, 0.35);
+}
+.tarjeta .foto-tarjeta { transition: transform 1s var(--ease); }
+.tarjeta:hover .foto-tarjeta { transform: scale(1.07); }
+.icono-tarjeta { transition: transform 0.5s var(--ease); }
+.tarjeta:hover .icono-tarjeta { transform: translateY(-3px) rotate(-6deg); }
+
+/* --- Valores y pasos del proceso --- */
+.valor img { transition: transform 0.5s var(--ease); }
+.valor:hover img { transform: translateY(-5px) scale(1.12); }
+.pasos span { transition: transform 0.4s var(--ease), box-shadow 0.4s; }
+.pasos article:hover span { transform: scale(1.12); box-shadow: 0 8px 18px -4px rgba(13, 64, 53, 0.55); }
+.efectos .pasos article.visible span { animation: aro-paso 1.2s 0.3s var(--ease) 1; }
+@keyframes aro-paso {
+    from { box-shadow: 0 0 0 0 rgba(8, 120, 77, 0.45); }
+    to   { box-shadow: 0 0 0 16px rgba(8, 120, 77, 0); }
+}
+
+/* --- Preguntas frecuentes --- */
+.faq summary { transition: color 0.25s, padding-left 0.35s var(--ease); }
+.faq summary:hover { color: #c82335; padding-left: 8px; }
+.faq details[open] > p { animation: despliega 0.5s var(--ease); }
+@keyframes despliega { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* --- Encabezado: sombra al desplazarse, barra de progreso y subrayado de enlaces --- */
+.encabezado { transition: box-shadow 0.4s, background-color 0.4s; }
+.encabezado.compacto { box-shadow: 0 6px 24px rgba(13, 64, 53, 0.16); }
+
+.progreso {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    transform-origin: 0 50%;
+    transform: scaleX(var(--p, 0));
+    background: linear-gradient(90deg, #08784d, #c82335);
+    pointer-events: none;
+}
+
+@media (min-aspect-ratio: 1/1) and (min-width: 1181px) {
+    .menu a:not(.boton) {
+        padding-bottom: 4px;
+        background: linear-gradient(#c82335, #c82335) left bottom / 0 2px no-repeat;
+        transition: background-size 0.4s var(--ease), color 0.25s;
+    }
+    .menu a:not(.boton):hover { background-size: 100% 2px; }
+    .menu [aria-current] { border-bottom: 0; background-size: 100% 2px; }
+}
+
+/* --- Palabras clave: en modo claro, un resaltado que se dibuja al aparecer --- */
+.neon {
+    background-image: linear-gradient(rgba(200, 35, 53, 0.2), rgba(200, 35, 53, 0.2));
+    background-repeat: no-repeat;
+    background-position: 0 90%;
+    background-size: 100% 34%;
+}
+.neon-rojo { background-image: linear-gradient(rgba(8, 120, 77, 0.2), rgba(8, 120, 77, 0.2)); }
+.banner .neon { background-image: linear-gradient(rgba(200, 35, 53, 0.65), rgba(200, 35, 53, 0.65)); }
+.banner .neon-rojo { background-image: linear-gradient(rgba(8, 120, 77, 0.75), rgba(8, 120, 77, 0.75)); }
+.contacto .neon { background-image: linear-gradient(rgba(200, 35, 53, 0.55), rgba(200, 35, 53, 0.55)); }
+.efectos .neon { background-size: 0% 34%; transition: background-size 1.1s 0.5s var(--ease); }
+.efectos .visible .neon,
+.efectos.cargado .banner .neon { background-size: 100% 34%; }
+
+/* ==========================================================================
+   5. BOTÓN FLOTANTE DE WHATSAPP
+   ========================================================================== */
+.whatsapp-flotante {
+    position: fixed;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 95;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+}
+.efectos .whatsapp-flotante { opacity: 0; transform: scale(0.4) translateY(20px); }
+.efectos.cargado .whatsapp-flotante { animation: wa-entra 0.8s 0.7s var(--ease) forwards; }
+@keyframes wa-entra { to { opacity: 1; transform: none; } }
+
+.wa-icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #34e07b, #109c4b);
+    box-shadow: 0 12px 26px -6px rgba(16, 156, 75, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s;
+    animation: wa-pulso 2.8s 3s ease-out infinite;
+}
+.wa-icono svg { width: 32px; height: 32px; fill: currentColor; transition: transform 0.4s var(--ease); }
+.whatsapp-flotante:hover .wa-icono { transform: scale(1.1) translateY(-3px); box-shadow: 0 18px 32px -6px rgba(16, 156, 75, 0.85), inset 0 1px 0 rgba(255,255,255,.4); animation: none; }
+.whatsapp-flotante:hover .wa-icono svg { transform: rotate(-8deg); }
+.whatsapp-flotante:active .wa-icono { transform: scale(0.94); }
+.whatsapp-flotante:focus-visible { outline: none; }
+.whatsapp-flotante:focus-visible .wa-icono { outline: 3px solid #f1c24b; outline-offset: 3px; }
+@keyframes wa-pulso {
+    0%   { box-shadow: 0 12px 26px -6px rgba(16,156,75,.7), inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 0 rgba(52, 224, 123, 0.55); }
+    70%  { box-shadow: 0 12px 26px -6px rgba(16,156,75,.7), inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 18px rgba(52, 224, 123, 0); }
+    100% { box-shadow: 0 12px 26px -6px rgba(16,156,75,.7), inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 0 rgba(52, 224, 123, 0); }
+}
+
+.wa-etiqueta {
+    padding: 9px 16px;
+    border-radius: 99px;
+    color: #0d4035;
+    background: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateX(14px);
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+}
+.whatsapp-flotante:hover .wa-etiqueta,
+.whatsapp-flotante:focus-visible .wa-etiqueta { opacity: 1; transform: none; }
+/* Se asoma una vez, unos segundos después de cargar, para que se note que es un chat. */
+.efectos.cargado .wa-etiqueta { animation: wa-asoma 5.5s 4s var(--ease) 1 both; }
+.whatsapp-flotante:hover .wa-etiqueta { animation: none; }
+@keyframes wa-asoma {
+    0%        { opacity: 0; transform: translateX(14px); }
+    10%, 85%  { opacity: 1; transform: none; }
+    100%      { opacity: 0; transform: translateX(14px); }
+}
+
+@media (max-width: 600px) {
+    .whatsapp-flotante { right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); }
+    .wa-icono { width: 54px; height: 54px; }
+    .wa-icono svg { width: 29px; height: 29px; }
+    .wa-etiqueta { display: none; }
+}
+
+/* ==========================================================================
+   6. MODO OSCURO: NEÓN SUTIL
+   Fondo casi negro verdoso, acentos verde y rojo neón con brillo moderado.
+   ========================================================================== */
+:root[data-tema="oscuro"] body { color: var(--o-texto); background: var(--o-fondo); }
+:root[data-tema="oscuro"] h2 { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .etiqueta { color: #5fe0b0; }
+:root[data-tema="oscuro"] .banner .etiqueta,
+:root[data-tema="oscuro"] .contacto .etiqueta { color: #7dffcf; }
+
+/* Encabezado */
+:root[data-tema="oscuro"] .encabezado {
+    background: rgba(9, 17, 15, 0.9);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(61, 255, 176, 0.22), 0 6px 26px rgba(61, 255, 176, 0.07);
+}
+:root[data-tema="oscuro"] .encabezado.compacto { box-shadow: 0 1px 0 rgba(61, 255, 176, 0.3), 0 8px 30px rgba(61, 255, 176, 0.12); }
+:root[data-tema="oscuro"] .marca { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .marca strong { text-shadow: 0 0 10px rgba(61, 255, 176, 0.45); }
+:root[data-tema="oscuro"] .marca-pie strong { text-shadow: none; }
+:root[data-tema="oscuro"] .menu a:hover,
+:root[data-tema="oscuro"] .pie nav a:hover { color: var(--o-neon); }
+:root[data-tema="oscuro"] .progreso { background: linear-gradient(90deg, var(--o-neon), var(--o-neon-rojo)); box-shadow: 0 0 10px rgba(61, 255, 176, 0.7); }
+:root[data-tema="oscuro"] .menu [aria-current] { border-bottom-color: var(--o-neon-rojo); }
+@media (min-aspect-ratio: 1/1) and (min-width: 1181px) {
+    :root[data-tema="oscuro"] .menu a:not(.boton) { background-image: linear-gradient(var(--o-neon), var(--o-neon)); }
+}
+
+/* Hamburguesa y menú desplegable */
+:root[data-tema="oscuro"] .hamburguesa { background: #0d1a16; border-color: #2a4a40; }
+:root[data-tema="oscuro"] .hamburguesa span { background: var(--o-neon); box-shadow: 0 0 6px rgba(61, 255, 176, 0.6); }
+@media (max-aspect-ratio: 1/1), (max-width: 1180px) {
+    :root[data-tema="oscuro"] .menu { background: #0b1512; border-top-color: var(--o-borde); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(61, 255, 176, 0.18) inset; }
+    :root[data-tema="oscuro"] .menu a:not(.boton) { border-bottom-color: #1a2d27; }
+    :root[data-tema="oscuro"] .menu [aria-current] { border-left-color: var(--o-neon-rojo); }
+}
+:root[data-tema="oscuro"] .menu-tema { border-bottom-color: #1a2d27; }
+
+/* Portada */
+:root[data-tema="oscuro"].efectos .banner::before,
+:root[data-tema="oscuro"] .banner::before {
+    background-image: linear-gradient(90deg, rgba(3, 12, 10, 0.97), rgba(3, 12, 10, 0.78) 45%, rgba(3, 12, 10, 0.3)), url("../Imagenes/banner.jpg");
+}
+.banner::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    opacity: 0;
+    background: linear-gradient(90deg, transparent, var(--o-neon, #3dffb0) 30%, var(--o-neon-rojo, #ff5d7c) 70%, transparent);
+    transition: opacity 0.6s;
+}
+:root[data-tema="oscuro"] .banner::after { opacity: 0.8; box-shadow: 0 0 14px rgba(61, 255, 176, 0.7); }
+
+/* Secciones y tarjetas */
+:root[data-tema="oscuro"] .valores,
+:root[data-tema="oscuro"] .seccion-suave,
+:root[data-tema="oscuro"] .inmobiliaria { background: var(--o-suave); }
+:root[data-tema="oscuro"] .nosotros,
+:root[data-tema="oscuro"] .alianzas { background: var(--o-fondo); }
+:root[data-tema="oscuro"] .valor { border-right-color: var(--o-borde); }
+:root[data-tema="oscuro"] .valor h3 { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .valor p,
+:root[data-tema="oscuro"] .texto-lateral,
+:root[data-tema="oscuro"] .tarjeta-texto p,
+:root[data-tema="oscuro"] .testimonio p,
+:root[data-tema="oscuro"] .pasos p,
+:root[data-tema="oscuro"] .faq details p,
+:root[data-tema="oscuro"] .nosotros-texto p:not(.etiqueta),
+:root[data-tema="oscuro"] .inmobiliaria-texto p:not(.etiqueta) { color: var(--o-apagado); }
+:root[data-tema="oscuro"] .texto-lateral,
+:root[data-tema="oscuro"] .pasos article { border-color: var(--o-borde); }
+:root[data-tema="oscuro"] .testimonio small { color: #7d948a; }
+
+:root[data-tema="oscuro"] .nosotros-texto .frase { color: #8cffd0 !important; text-shadow: 0 0 16px rgba(61, 255, 176, 0.25); }
+
+/* Los iconos son SVG verde oscuro: se recolorean a menta neón. */
+:root[data-tema="oscuro"] .valor img,
+:root[data-tema="oscuro"] .icono-tarjeta {
+    filter: invert(1) hue-rotate(180deg) saturate(2.2) brightness(1.15) drop-shadow(0 0 5px rgba(61, 255, 176, 0.45));
+}
+
+:root[data-tema="oscuro"] .tarjeta,
+:root[data-tema="oscuro"] .testimonio {
+    background: var(--o-superficie);
+    border-color: var(--o-borde);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+:root[data-tema="oscuro"] .tarjeta:hover,
+:root[data-tema="oscuro"] .testimonio:hover {
+    border-color: rgba(61, 255, 176, 0.55);
+    box-shadow: 0 0 0 1px rgba(61, 255, 176, 0.25), 0 20px 40px -14px rgba(61, 255, 176, 0.3);
+}
+/* El filtro de arriba también invierte el fondo del recuadro: este tono, ya filtrado, queda igual al de la tarjeta oscura. */
+:root[data-tema="oscuro"] .icono-tarjeta { background: #e3e9e9; }
+:root[data-tema="oscuro"] .tarjeta-texto h3,
+:root[data-tema="oscuro"] .pasos h3,
+:root[data-tema="oscuro"] .tarjeta-texto a:not(.boton) { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .tarjeta-texto a:not(.boton):hover { color: var(--o-neon-rojo); }
+:root[data-tema="oscuro"] .testimonio strong { color: var(--o-neon); text-shadow: 0 0 12px rgba(61, 255, 176, 0.6); }
+
+:root[data-tema="oscuro"] .pasos span {
+    color: var(--o-neon);
+    background: #0b1a16;
+    border: 1px solid rgba(61, 255, 176, 0.55);
+    text-shadow: 0 0 8px rgba(61, 255, 176, 0.7);
+    box-shadow: 0 0 14px rgba(61, 255, 176, 0.2);
+}
+:root[data-tema="oscuro"] .pasos article:hover span { box-shadow: 0 0 22px rgba(61, 255, 176, 0.55); }
+:root[data-tema="oscuro"].efectos .pasos article.visible span { animation-name: aro-paso-neon; }
+@keyframes aro-paso-neon {
+    from { box-shadow: 0 0 0 0 rgba(61, 255, 176, 0.5); }
+    to   { box-shadow: 0 0 0 16px rgba(61, 255, 176, 0); }
+}
+
+:root[data-tema="oscuro"] .faq details { border-bottom-color: var(--o-borde); }
+:root[data-tema="oscuro"] .faq summary { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .faq summary:hover { color: var(--o-neon); }
+
+/* Contacto y formulario */
+:root[data-tema="oscuro"] .contacto {
+    background: linear-gradient(90deg, rgba(3, 16, 13, 0.97), rgba(3, 16, 13, 0.9)), url("../Imagenes/banner.jpg") center / cover;
+    box-shadow: inset 0 1px 0 rgba(61, 255, 176, 0.18);
+}
+:root[data-tema="oscuro"] .formulario {
+    color: var(--o-texto);
+    background: #0f1b18;
+    border: 1px solid #23423a;
+    box-shadow: 0 0 0 1px rgba(61, 255, 176, 0.08), 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 40px rgba(61, 255, 176, 0.07);
+}
+:root[data-tema="oscuro"] .formulario h3,
+:root[data-tema="oscuro"] .formulario label { color: #a9f5d6; }
+:root[data-tema="oscuro"] .formulario input,
+:root[data-tema="oscuro"] .formulario select,
+:root[data-tema="oscuro"] .formulario textarea { color: #e1efe9; background: #091310; border-color: #28443b; }
+:root[data-tema="oscuro"] .formulario input::placeholder,
+:root[data-tema="oscuro"] .formulario textarea::placeholder { color: #66807a; }
+:root[data-tema="oscuro"] .formulario input:focus-visible,
+:root[data-tema="oscuro"] .formulario select:focus-visible,
+:root[data-tema="oscuro"] .formulario textarea:focus-visible { outline-color: var(--o-neon); border-color: var(--o-neon); box-shadow: 0 0 14px rgba(61, 255, 176, 0.25); }
+:root[data-tema="oscuro"] .formulario :user-invalid { border-color: var(--o-neon-rojo); }
+:root[data-tema="oscuro"] .formulario-estado.info { color: #bdf5dc; background: #0f2a23; }
+:root[data-tema="oscuro"] .formulario-estado.exito { color: #9dffd0; background: #0c2c20; }
+:root[data-tema="oscuro"] .formulario-estado.error { color: #ffb3c0; background: #331019; }
+
+/* Pie de página y redes */
+:root[data-tema="oscuro"] .pie { background: #050a09; box-shadow: inset 0 1px 0 rgba(61, 255, 176, 0.18); }
+:root[data-tema="oscuro"] .redes a { border-color: #2a3d37; }
+:root[data-tema="oscuro"] .redes a:hover { border-color: var(--o-neon-rojo); background: var(--o-neon-rojo); color: #1a0509; box-shadow: 0 0 16px rgba(255, 93, 124, 0.5); }
+:root[data-tema="oscuro"] .redes-lateral { background: #0b1b16; border: 1px solid rgba(61, 255, 176, 0.3); border-right: 0; box-shadow: -2px 3px 20px rgba(61, 255, 176, 0.12); }
+:root[data-tema="oscuro"] .redes-lateral a:hover { background: var(--o-neon-rojo); color: #1a0509; }
+
+/* Obras e informes */
+:root[data-tema="oscuro"] .estado { color: #bfd5cb; background: #0f1b18; border-color: #2a463d; }
+:root[data-tema="oscuro"] .estado::before { color: var(--o-neon); text-shadow: 0 0 8px var(--o-neon); }
+:root[data-tema="oscuro"] .tarjeta-cta { background: linear-gradient(145deg, #0c2a22, #0a1815); border-color: rgba(61, 255, 176, 0.4); }
+:root[data-tema="oscuro"] .volver { color: var(--o-neon); }
+:root[data-tema="oscuro"] .informe h1 { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .informe-sub { color: var(--o-apagado); }
+:root[data-tema="oscuro"] .informe-cuerpo p { color: #bcd0c7; }
+:root[data-tema="oscuro"] .informe-cuerpo h3 { color: var(--o-titulo); }
+:root[data-tema="oscuro"] .informe-cita { color: #8cffd0; border-left-color: var(--o-neon); }
+:root[data-tema="oscuro"] .ficha { background: var(--o-superficie); border-color: var(--o-borde); }
+:root[data-tema="oscuro"] .ficha dt { color: #7dffcf; }
+:root[data-tema="oscuro"] .galeria figcaption { color: var(--o-apagado); }
+:root[data-tema="oscuro"] .foto-falta { color: var(--o-apagado); background: #0d1815; border-color: #2a463d; }
+:root[data-tema="oscuro"] .vacio { background: var(--o-superficie); border-color: #2a463d; }
+:root[data-tema="oscuro"] .vacio p { color: var(--o-apagado); }
+:root[data-tema="oscuro"] .vacio-redes a { color: #bdf5dc; border-color: #2f5b4d; }
+:root[data-tema="oscuro"] .vacio-redes a:hover { color: #04150e; background: var(--o-neon); }
+
+/* Botones en modo oscuro: más brillo, con halo neón. */
+:root[data-tema="oscuro"] .boton-rojo {
+    background: linear-gradient(135deg, #ff4d6a 0%, #dc2443 55%, #b0142f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 93, 124, 0.5), 0 10px 26px -6px rgba(255, 77, 106, 0.65);
+}
+:root[data-tema="oscuro"] .boton-rojo:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -3px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(255, 93, 124, 0.8), 0 16px 36px -6px rgba(255, 77, 106, 0.85); }
+:root[data-tema="oscuro"] .boton-verde {
+    color: #03140d;
+    background: linear-gradient(135deg, #5dffc3 0%, #2cf0a0 55%, #14c982 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(61, 255, 176, 0.55), 0 10px 26px -6px rgba(61, 255, 176, 0.55);
+}
+:root[data-tema="oscuro"] .boton-verde:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -3px 0 rgba(0,0,0,.14), 0 0 0 1px rgba(61, 255, 176, 0.9), 0 16px 38px -6px rgba(61, 255, 176, 0.75); }
+:root[data-tema="oscuro"] .boton-transparente { border-color: rgba(125, 255, 207, 0.8); box-shadow: 0 0 18px -4px rgba(61, 255, 176, 0.45), inset 0 0 14px -6px rgba(61, 255, 176, 0.35); }
+:root[data-tema="oscuro"] .boton-transparente:hover { background: rgba(61, 255, 176, 0.16); border-color: var(--o-neon); box-shadow: 0 0 26px -2px rgba(61, 255, 176, 0.7); }
+:root[data-tema="oscuro"] .boton-contorno { color: #a9f5d6; background: transparent; border-color: rgba(61, 255, 176, 0.55); box-shadow: 0 0 12px -4px rgba(61, 255, 176, 0.4); }
+:root[data-tema="oscuro"] .boton-contorno:hover,
+:root[data-tema="oscuro"] .boton-contorno[aria-pressed="true"] { color: #03140d; background: var(--o-neon); border-color: var(--o-neon); box-shadow: 0 0 24px -2px rgba(61, 255, 176, 0.65); }
+:root[data-tema="oscuro"] .banner .boton-rojo:hover { animation: none; }
+:root[data-tema="oscuro"].efectos.cargado .banner .boton-rojo { animation-name: cta-pulso-neon; }
+@keyframes cta-pulso-neon {
+    0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(255,93,124,.5), 0 10px 26px -6px rgba(255,77,106,.65), 0 0 0 0 rgba(255, 93, 124, 0.5); }
+    55%      { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(255,93,124,.5), 0 10px 26px -6px rgba(255,77,106,.65), 0 0 0 14px rgba(255, 93, 124, 0); }
+}
+
+/* WhatsApp: se mantiene verde WhatsApp, con un halo más suave sobre fondo oscuro. */
+:root[data-tema="oscuro"] .wa-etiqueta { color: #d9fff0; background: #0f1b18; border: 1px solid rgba(61, 255, 176, 0.4); box-shadow: 0 0 18px rgba(61, 255, 176, 0.2); }
+
+/* --- Palabras clave con neón que parpadea (solo en modo oscuro) --- */
+:root[data-tema="oscuro"] .neon,
+:root[data-tema="oscuro"] .neon-rojo {
+    background-image: none;
+    color: var(--o-neon);
+    text-shadow: 0 0 5px rgba(61, 255, 176, 0.65), 0 0 18px rgba(61, 255, 176, 0.35), 0 0 36px rgba(61, 255, 176, 0.15);
+    animation: parpadeo-neon var(--duracion, 8s) var(--retardo, 0s) infinite;
+}
+:root[data-tema="oscuro"] .neon-rojo {
+    color: var(--o-neon-rojo);
+    text-shadow: 0 0 5px rgba(255, 93, 124, 0.65), 0 0 18px rgba(255, 93, 124, 0.35), 0 0 36px rgba(255, 93, 124, 0.15);
+    animation-name: parpadeo-neon-rojo;
+}
+
+/* Tubo de neón: casi siempre encendido, con dos titileos breves y un apagón parcial. Nunca desaparece del todo. */
+@keyframes parpadeo-neon {
+    0%, 17%, 22%, 26%, 54%, 59%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px rgba(61, 255, 176, 0.65), 0 0 18px rgba(61, 255, 176, 0.35), 0 0 36px rgba(61, 255, 176, 0.15);
+    }
+    19%, 24%, 56.5% {
+        opacity: 0.62;
+        text-shadow: 0 0 2px rgba(61, 255, 176, 0.3), 0 0 6px rgba(61, 255, 176, 0.12);
+    }
+}
+@keyframes parpadeo-neon-rojo {
+    0%, 17%, 22%, 26%, 54%, 59%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px rgba(255, 93, 124, 0.65), 0 0 18px rgba(255, 93, 124, 0.35), 0 0 36px rgba(255, 93, 124, 0.15);
+    }
+    19%, 24%, 56.5% {
+        opacity: 0.62;
+        text-shadow: 0 0 2px rgba(255, 93, 124, 0.3), 0 0 6px rgba(255, 93, 124, 0.12);
+    }
+}
+
+/* Transición suave de colores al cambiar de modo (la clase se pone unos instantes desde Js/efectos.js). */
+.cambiando-tema, .cambiando-tema *, .cambiando-tema *::before, .cambiando-tema *::after {
+    transition: background-color 0.5s var(--ease-salida), color 0.5s var(--ease-salida), border-color 0.5s var(--ease-salida), box-shadow 0.5s var(--ease-salida) !important;
+}
+
+/* ==========================================================================
+   7. REDUCIR MOVIMIENTO: quien lo pide en su sistema no ve animaciones largas ni parpadeos.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .js .cargador { transition-duration: 0.01s; animation-duration: 0.01s; }
+    .cargador-logo img, .aro-trazo, .cargador-marca, .cargador-barra, .cargador-barra span { animation: none; }
+    .aro-trazo { stroke-dashoffset: 0; }
+    .efectos .revela, .efectos .revela.revela-img { opacity: 1; transform: none; transition: none; }
+    .efectos .banner-contenido > *, .efectos .banner::before,
+    .efectos.cargado .banner .boton-rojo, .efectos.cargado .banner .boton-rojo::after,
+    .wa-icono, .efectos.cargado .wa-etiqueta, .efectos.cargado .whatsapp-flotante { animation: none; }
+    .efectos .whatsapp-flotante { opacity: 1; transform: none; }
+    :root[data-tema="oscuro"] .neon, :root[data-tema="oscuro"] .neon-rojo { animation: none; }
+    .efectos .neon { background-size: 100% 34%; transition: none; }
+    .tarjeta:hover, .testimonio:hover, .boton:hover { transform: none; }
+    .tarjeta:hover .foto-tarjeta { transform: none; }
+    .cambiando-tema, .cambiando-tema * { transition: none !important; }
+}
+
+
+/* ==========================================================================
+   8. LEGIBILIDAD: texto pequeño más oscuro (modo claro) y jerarquía de títulos más marcada
+   ========================================================================== */
+.etiqueta { color: #2f5c4e; font-size: 11px; }
+.texto-lateral, .tarjeta-texto p, .pasos p, .valor p, .testimonio p,
+.nosotros-texto p:not(.etiqueta), .inmobiliaria-texto p:not(.etiqueta) { color: #44524b; }
+.testimonio small { color: #5a665f; }
+.tarjeta-texto h3 { font-size: 15.5px; color: #0b3329; }
+.valor h3, .pasos h3 { color: #0b3329; font-size: 16px; }
+.pasos h3 { font-family: Georgia, "Times New Roman", serif; }
+.informe-cuerpo h3 { color: #0b3329; }
+h2 { color: #0a3027; }
+.contacto .etiqueta, .banner .etiqueta { color: #eaf3ee; }
+
+:root[data-tema="oscuro"] .etiqueta { color: #7dffcf; }
+:root[data-tema="oscuro"] .texto-lateral,
+:root[data-tema="oscuro"] .tarjeta-texto p,
+:root[data-tema="oscuro"] .pasos p,
+:root[data-tema="oscuro"] .valor p,
+:root[data-tema="oscuro"] .testimonio p,
+:root[data-tema="oscuro"] .faq details p,
+:root[data-tema="oscuro"] .nosotros-texto p:not(.etiqueta),
+:root[data-tema="oscuro"] .inmobiliaria-texto p:not(.etiqueta) { color: #b4c8be; }
+:root[data-tema="oscuro"] .testimonio small { color: #98afa4; }
+:root[data-tema="oscuro"] .tarjeta-texto h3,
+:root[data-tema="oscuro"] .valor h3,
+:root[data-tema="oscuro"] .pasos h3 { color: #f0fff8; }
+:root[data-tema="oscuro"] h2 { color: #f0fff8; }
+:root[data-tema="oscuro"] .formulario input::placeholder,
+:root[data-tema="oscuro"] .formulario textarea::placeholder { color: #84a095; }
+:root[data-tema="oscuro"] .pie-final { color: #b4c0ba; }

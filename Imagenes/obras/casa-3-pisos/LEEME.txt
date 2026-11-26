@@ -1,0 +1,7 @@
+Coloca aquí las imágenes de esta obra con EXACTAMENTE estos nombres:
+01-fachada.jpg
+02-sala.jpg
+03-cocina.jpg
+04-bano.jpg
+05-escalera.jpg
+(Descripciones en Notas_Locas.txt, sección final.)
